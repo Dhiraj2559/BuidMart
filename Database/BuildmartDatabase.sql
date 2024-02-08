@@ -119,4 +119,35 @@ CREATE TABLE vendor_product (
 ) AUTO_INCREMENT=17 ;
 
 
+DROP TABLE IF EXISTS individual_customer;
 
+CREATE TABLE individual_customer (
+  id int NOT NULL AUTO_INCREMENT,
+  contact_number varchar(100),
+  email varchar(100),
+  first_name varchar(100),
+  last_name varchar(100),
+  user_id int,
+  PRIMARY KEY (id),
+  KEY FK09 (user_id),
+  CONSTRAINT FK09 FOREIGN KEY (user_id) REFERENCES users (id)
+) AUTO_INCREMENT=5;
+
+
+
+DROP TABLE IF EXISTS service_providers;
+
+CREATE TABLE service_providers (
+  id int NOT NULL AUTO_INCREMENT,
+  contact_number varchar(255),
+  email varchar(255),
+  experience int,
+  first_name varchar(255),
+  last_name varchar(255),
+  rates double,
+  status varchar(255),
+  uid int,
+  PRIMARY KEY (id),
+  KEY FK10 (uid),
+  CONSTRAINT `FKohlwfq5rgdtx3o5s72cvlcbk6` FOREIGN KEY (uid) REFERENCES users (id)
+) ;
