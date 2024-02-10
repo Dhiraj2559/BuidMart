@@ -24,11 +24,7 @@ public interface VendorProduct_Repo extends JpaRepository<Vendor_Product, Intege
 	@Query("select v from Vendor_Product v where product_id=:pid")
 	public List<Vendor_Product> getVendorProductsForCustomers(int pid);
 	
-	@Modifying
-	@Query("UPDATE Vendor_Product e SET e.quantity=:quantity, e.price =:price, e.offerPercentage=:offerPercentage, e.offerValidDate =:offerValidDate  WHERE e.id = :vid")
-	public int updateVendorProduct(int quantity,double price,int offerPercentage,Date offerValidDate,int vid );
 	
-
 	@Modifying
 	@Query("delete from Vendor_Product u where id=:vid")
 	public int deleteVendorProduct(int vid);

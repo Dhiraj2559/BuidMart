@@ -68,9 +68,8 @@ public class Login {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Login(int id, String password, String username, Role role) {
+	public Login( String password, String username, Role role) {
 		super();
-		this.id = id;
 		this.password = password;
 		this.username = username;
 		this.role = role;

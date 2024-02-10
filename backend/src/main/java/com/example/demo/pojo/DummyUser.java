@@ -1,71 +1,42 @@
-package com.example.demo.entities;
-
-import java.util.Set;
+package com.example.demo.pojo;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.example.demo.entities.Login;
+import com.example.demo.entities.Role;
 
-@Entity
-@Table(name="users")
-public class User {
-	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY )
-	private int id;
-	
-	@Column
+public class DummyUser {
+
+
 	private String first_name;
 	
-	@Column
 	private String last_name;
 
-	@Column
 	private String contact_number;
 	
-	@Column
 	private String email;
 
-	@ManyToOne
-	@Cascade(value = CascadeType.ALL)
-	@JoinColumn(name="role_id")
-	Role role;
+	int role;
 	
-	@OneToOne
-	@Cascade(value = CascadeType.ALL)
-	@JoinColumn(name="login_id")
 	Login log;
 	
-	@Column
 	private String shop_name;
 	
-	@Column
 	private int experience;
-	
-	@Column
+
 	private float rates;
-	
-	@Column
+
 	private String status;
+	
+	private String password;
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
+	private String username;
 
 	public String getFirst_name() {
 		return first_name;
@@ -99,11 +70,11 @@ public class User {
 		this.email = email;
 	}
 
-	public Role getRole() {
+	public int getRole() {
 		return role;
 	}
 
-	public void setRole(Role role) {
+	public void setRole(int role) {
 		this.role = role;
 	}
 
@@ -147,13 +118,29 @@ public class User {
 		this.status = status;
 	}
 
-	public User() {
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public DummyUser() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String first_name, String last_name, String contact_number, String email, Role role, Login log,
-			String shop_name, int experience, float rates, String status) {
+	public DummyUser(String first_name, String last_name, String contact_number, String email, int role, Login log,
+			String shop_name, int experience, float rates, String status, String password, String username) {
 		super();
 		this.first_name = first_name;
 		this.last_name = last_name;
@@ -165,24 +152,16 @@ public class User {
 		this.experience = experience;
 		this.rates = rates;
 		this.status = status;
-	}
-
-	public User(String first_name1, String last_name1, String contact_number1, String email, Role role, Login log) {
-		// TODO Auto-generated constructor stub
-		super();
-		this.first_name = first_name1;
-		this.last_name = last_name1;
-		this.contact_number = contact_number1;
-		this.email = email;
-		this.role = role;
-		this.log = log;
+		this.password = password;
+		this.username = username;
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", first_name=" + first_name + ", last_name=" + last_name + ", contact_number="
-				+ contact_number + ", email=" + email + ", role=" + role + ", log=" + log + ", shop_name=" + shop_name
-				+ ", experience=" + experience + ", rates=" + rates + ", status=" + status + "]";
+		return "DummyUser [first_name=" + first_name + ", last_name=" + last_name + ", contact_number=" + contact_number
+				+ ", email=" + email + ", role=" + role + ", log=" + log + ", shop_name=" + shop_name + ", experience="
+				+ experience + ", rates=" + rates + ", status=" + status + ", password=" + password + ", username="
+				+ username + "]";
 	}
 	
 	
