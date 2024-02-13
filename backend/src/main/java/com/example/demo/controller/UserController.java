@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,29 +34,82 @@ public class UserController {
     @PostMapping("/userRegister")
 	public User registerCustomer(@RequestBody DummyUser cr)
 	{
-    	
+    	User a=null;
     	Role r=rl.getRole(cr.getRole());
     	Login c=lservice.saveLogin(new Login(cr.getUsername(),cr.getPassword(),r));
-		User a=uservice.saveUser(new User(cr.getFirst_name(),cr.getLast_name(),cr.getContact_number(),cr.getEmail(),r,c));
+    	if(cr.getRole()==1)
+    	{
+		a=uservice.saveUser(new User(cr.getFirst_name(),cr.getLast_name(),cr.getContact_number(),cr.getEmail(),r,c));
+    	}
+    	else if(cr.getRole()==2)
+    	{
+		 a=uservice.saveUser(new User(cr.getFirst_name(),cr.getLast_name(),cr.getContact_number(),cr.getEmail(),r,c,cr.getShop_name()));
+    	}
+    	else if(cr.getRole()==3)
+    	{
+		 a=uservice.saveUser(new User(cr.getFirst_name(),cr.getLast_name(),cr.getContact_number(),cr.getEmail(),r,c,cr.getExperience(),cr.getRates(),cr.getStatus()));
+    	}
 		System.out.println(cr.getFirst_name()+""+cr.getLast_name()+""+cr.getContact_number());
 	    return a;
 	    
 	}
     
-    
-    @PostMapping("/login")
-    public int userlogin(@RequestBody DummyUser n)
+    @PostMapping("/checkLogin")
+    public User checkLogin(@RequestBody Login l)
     {
-    	int chk=lservice.getLoginByUsername(n.getUsername(),n.getPassword());
-    	System.out.println(chk);
-    	return chk;
+    	String uname=l.getUsername();
+    	String pass=l.getPassword();
+
+    	Login u=lservice.getLoginByUsername(uname, pass);
+    	
+    	User logged=uservice.getUserByLoginId(u.getId());
+    	System.out.println(logged);
+    	return logged;
     }
-   
-   
+    
+    @GetMapping("/getVendors")
+	   public List<User> getVendors()
+	   {
+		   return uservice.getAllVendors();
+	   }
+    
+    @GetMapping("/getVendorByUid")
+	 public User getVendorById(@RequestParam int uid )
+	 {
+	   
+		 return uservice.getUserById(uid);
+	 }
+    
+    @GetMapping("/getVendorEmails")
+	   public String[] getVendEmails()
+	   {
+	    	return uservice.getVendEmails();
+	   }
+    
     @GetMapping("/getUserById" )
     public User getUserByID(@RequestParam int id)
     {
     	return uservice.getUserById(id);
     }
+    
+    @GetMapping("/getCustEmails")
+	   public String[] getCustEmails()
+	    {
+	    	return uservice.getCustEmails();
+	   }
+	    
+	 
+	 @GetMapping("/getCustomers")
+	 public List<User> getAllCustomers()
+	 {
+		 return uservice.getAllCustomers();
+	 }
+	 
+	 
+	 @GetMapping("/getCustomerByUid")
+	 public User getCustById(@RequestParam int uid )
+	 {
+		 return uservice.getUserById(uid);
+	 }
 
 }

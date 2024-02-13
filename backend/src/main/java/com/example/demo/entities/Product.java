@@ -73,6 +73,14 @@ public class Product {
 		this.category = category;
 		this.vendorProductList = vendorProductList;
 	}
+	public Product(String productName, String description, String stockQuantity, byte[] picture, Category category) {
+		super();
+		this.productName = productName;
+		this.description = description;
+		this.stockQuantity = stockQuantity;
+		this.picture = picture;
+		this.category = category;
+	}
 
 	public int getId() {
 		return id;

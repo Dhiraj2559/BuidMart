@@ -178,6 +178,30 @@ public class User {
 		this.log = log;
 	}
 
+	public User(String first_name, String last_name, String contact_number, String email, Role role, Login log,
+			String shop_name) {
+		super();
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.contact_number = contact_number;
+		this.email = email;
+		this.role = role;
+		this.log = log;
+		this.shop_name = shop_name;
+	}
+	public User(String first_name, String last_name, String contact_number, String email, Role role, Login log,
+			int experience, float rates, String status) {
+		super();
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.contact_number = contact_number;
+		this.email = email;
+		this.role = role;
+		this.log = log;
+		this.experience = experience;
+		this.rates = rates;
+		this.status = status;
+	}
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", first_name=" + first_name + ", last_name=" + last_name + ", contact_number="
