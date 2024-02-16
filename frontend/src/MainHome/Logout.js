@@ -11,7 +11,7 @@ export default function Logout() {
   dispatch(logout());
   const mystate = useSelector((state) => state.logged);
   //   alert(mystate.loggedIn);
-  navigate("/home");
+  navigate("/");
 
   <Routes>
     <Route path="/" element={<App></App>}></Route>

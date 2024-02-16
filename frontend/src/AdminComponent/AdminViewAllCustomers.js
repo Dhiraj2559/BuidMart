@@ -12,7 +12,7 @@ export default function AdminViewAllCustomers(){
         .then(data=>setCustomers(data))
     },[])
     return(
-        <div className="fs-4">
+        <div className="container credit text-center mt-5 login-form-container col-8">
             <h1>All customers list</h1>
             <table className="table table-bordered table-responsive table-striped">
                    <thead>
@@ -28,7 +28,7 @@ export default function AdminViewAllCustomers(){
                           {customers.map((v)=>{ return(
                             <tr>
                                 <td>
-                                    {v.id}
+                                    {v.user.id}
                                 </td>
                                 <td>
                                     {v.first_name}
@@ -37,7 +37,7 @@ export default function AdminViewAllCustomers(){
                                     {v.last_name}
                                 </td>
                                 <td>
-                                    <button type="button" onClick={()=>{navigate(`/viewCustomer/${v.id}`)}}>View details</button>
+                                    <button type="button" onClick={()=>{navigate(`/viewCustomer/${v.user.id}`)}}>View details</button>
                                 </td>
                             </tr>)
                           })}  

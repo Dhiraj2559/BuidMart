@@ -1,57 +1,21 @@
+import "./shubham.css";
+
 import { useEffect, useReducer, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-export default function EditProfileCustomer() {
-  const [us, setUs] = useState();
-  const [user, setUser] = useState();
-  useEffect(() => {
-    const u = JSON.parse(localStorage.getItem("loggedUser"));
-    setUs(u);
-  }, []);
-  alert(us);
-
-  useEffect(() => {
-    fetch("http://localhost:8080/getUserById?id=" + us.id)
-      .then((resp) => resp.json())
-      .then((data) => setUser(data));
-  }, [us]);
-
+export default function CompanyRegister() {
   const initialState = {
-    uid: { value: user.id, hasError: false, error: "", touched: false },
-    fname: {
-      value: user.customer.first_name,
-      hasError: false,
-      error: "",
-      touched: false,
-    },
-    lname: {
-      value: user.customer.last_name,
-      hasError: false,
-      error: "",
-      touched: false,
-    },
-    email: {
-      value: user.customer.email,
-      hasError: true,
-      error: "",
-      touched: false,
-    },
-    cno: {
-      value: user.customer.contact_number,
-      hasError: true,
-      error: "",
-      touched: false,
-    },
-    uname: { value: user.username, hasError: true, error: "", touched: false },
-    pwd: { value: user.password, hasError: true, error: "", touched: false },
-    cpwd: { value: user.password, hasError: true, error: "", touched: false },
-    qid: {
-      value: user.question.id,
-      hasError: false,
-      error: "",
-      touched: false,
-    },
-    ans: { value: user.answer, hasError: false, error: "", touched: false },
+    cname: { value: "", hasError: false, error: "", touched: false },
+    email: { value: "", hasError: true, error: "", touched: false },
+    cno: { value: "", hasError: true, error: "", touched: false },
+    uname: { value: "", hasError: true, error: "", touched: false },
+    pwd: { value: "", hasError: true, error: "", touched: false },
+    cpwd: { value: "", hasError: true, error: "", touched: false },
+    qid: { value: 0, hasError: false, error: "", touched: false },
+    ans: { value: "", hasError: false, error: "", touched: false },
+    city: { value: 0, hasError: false, error: "", touched: false },
+    area: { value: 0, hasError: false, error: "", touched: false },
+    addline: { value: "", hasError: false, error: "", touched: false },
     isFormValid: false,
   };
 
@@ -76,7 +40,7 @@ export default function EditProfileCustomer() {
   const [unames, setUname] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/getemails")
+    fetch("http://localhost:8080/getCompEmails")
       .then((resp) => resp.json())
       .then((data) => setEmail(data));
   }, []);
@@ -113,31 +77,21 @@ export default function EditProfileCustomer() {
     let error = "";
     switch (name) {
       case "email":
-        if (value === user.customer.email) {
-          hasError = false;
-          error = "";
-        } else {
-          emails.forEach((element) => {
-            if (element === value) {
-              hasError = true;
-              error = "email already used";
-            }
-          });
-        }
+        emails.forEach((element) => {
+          if (element === value) {
+            hasError = true;
+            error = "email already used";
+          }
+        });
         break;
 
       case "uname":
-        if (value === user.username) {
-          hasError = false;
-          error = "";
-        } else {
-          unames.forEach((element) => {
-            if (element === value) {
-              hasError = true;
-              error = "username already used";
-            }
-          });
-        }
+        unames.forEach((element) => {
+          if (element === value) {
+            hasError = true;
+            error = "username already used";
+          }
+        });
         break;
       case "pwd":
         var exp1 =
@@ -158,7 +112,7 @@ export default function EditProfileCustomer() {
         break;
 
       case "cpwd":
-        if (info.pwd != value) {
+        if (info.pwd.value !== value) {
           hasError = true;
           error = "confirm password mismatched";
         }
@@ -169,6 +123,23 @@ export default function EditProfileCustomer() {
   };
 
   const [questions, setQuestion] = useState([]);
+
+  const [cities, setCity] = useState([]);
+  const [areas, setArea] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/getcities")
+      .then((resp) => resp.json())
+      .then((data) => setCity(data));
+  }, []);
+
+  const editCity = (e) => {
+    var cid = e.target.value;
+
+    fetch("http://localhost:8080/getareas?cityid=" + cid)
+      .then((resp) => resp.json())
+      .then((data) => setArea(data));
+  };
 
   useEffect(() => {
     fetch("http://localhost:8080/getquestions")
@@ -183,13 +154,25 @@ export default function EditProfileCustomer() {
   const submitData = (e) => {
     e.preventDefault();
 
+    const Obj = {
+      cname: info.cname.value,
+      email: info.email.value,
+      cno: info.cno.value,
+      uname: info.uname.value,
+      pwd: info.pwd.value,
+      qid: info.qid.value,
+      ans: info.ans.value,
+      city: info.city.value,
+      area: info.area.value,
+      addline: info.addline.value,
+    };
     var reqOptions = {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify(info),
+      body: JSON.stringify(Obj),
     };
 
-    fetch("http://localhost:8080/editCustomer", reqOptions)
+    fetch("http://localhost:8080/companyRegister", reqOptions)
       .then((resp) => {
         if (resp.ok) return resp.text();
         else throw new Error("server error");
@@ -199,38 +182,28 @@ export default function EditProfileCustomer() {
         if (Object.keys(obj).length === 0) {
           setMsg("Invalid username/password");
         } else {
-          navigate("/editsucces");
+          navigate("/successregister");
         }
       });
   };
 
   return (
-    <div className="container fs-4">
+    <div className="container">
       <form>
-        <div className="mb-3">
-          <label htmlFor="fname">Enter First name</label>
-          <input
-            type="text"
-            id="fname"
-            name="fname"
-            value={info.fname.value}
-            onChange={(e) => {
-              handleChange("fname", e.target.value);
-            }}
-          />
-        </div>
         <div>
-          <label htmlFor="lname">Enter Last name</label>
+          <label htmlFor="cname">Enter First name</label>
           <input
+            className="form-control"
             type="text"
-            id="lname"
-            name="lname"
-            value={info.lname.value}
+            id="cname"
+            name="cname"
+            value={info.cname.value}
             onChange={(e) => {
-              handleChange("lname", e.target.value);
+              handleChange("cname", e.target.value);
             }}
           />
         </div>
+
         <div>
           <label htmlFor="email">Enter Email id</label>
           <input
@@ -270,6 +243,55 @@ export default function EditProfileCustomer() {
             {info.cno.error}
           </div>
         </div>
+
+        <div>
+          <label htmlFor="city">Select City</label>
+          <select id="city" name="city"    className="fs-4"  onChange={(e) => editCity(e)}>
+            <option>Select city</option>
+            {cities.map((v) => {
+              return (
+                <option key={v.id} value={v.id}>
+                  {v.city_name}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+
+        <div>
+          <label htmlFor="area">Select Area</label>
+          <select
+            id="area"
+            name="area"
+            className=" fs-4" 
+            onChange={(e) => {
+              handleChange("area", e.target.value);
+            }}
+          >
+            {" "}
+            <option>Select Area</option>
+            {areas.map((v) => {
+              return (
+                <option key={v.id} value={v.id}>
+                  {v.name}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+        <div>
+          <label htmlFor="addline">Enter Address line</label>
+          <input
+            type="text"
+            id="addline"
+            name="addline"
+            value={info.addline.value}
+            onChange={(e) => {
+              handleChange("addline", e.target.value);
+            }}
+          />
+        </div>
+
         <div>
           <label htmlFor="uname">Enter username</label>
           <input
@@ -293,7 +315,7 @@ export default function EditProfileCustomer() {
         <div>
           <label htmlFor="pwd">Enter password</label>
           <input
-            type="text"
+            type="password"
             id="pwd"
             name="pwd"
             value={info.pwd.value}
@@ -312,7 +334,7 @@ export default function EditProfileCustomer() {
         <div>
           <label htmlFor="cpwd">Confirm password</label>
           <input
-            type="text"
+            type="password"
             id="cpwd"
             name="cpwd"
             value={info.cpwd.value}
@@ -334,13 +356,15 @@ export default function EditProfileCustomer() {
           <select
             id="qid"
             name="qid"
+            className=" fs-4" 
             onChange={(e) => {
               handleChange("qid", e.target.value);
             }}
           >
+            <option className=" fs-4">Select Question</option>
             {questions.map((v) => {
               return (
-                <option key={v.id} value={v.id}>
+                <option key={v.id} value={v.id}  className=" fs-4">
                   {v.question}
                 </option>
               );
@@ -349,11 +373,12 @@ export default function EditProfileCustomer() {
         </div>
 
         <div>
-          <label htmlFor="ans">Enter Answer</label>
+          <label htmlFor="ans"  className=" fs-4">Enter Answer</label>
           <input
             type="text"
             id="ans"
             name="ans"
+            className=" fs-4"
             value={info.ans.value}
             onChange={(e) => {
               handleChange("ans", e.target.value);
@@ -363,16 +388,16 @@ export default function EditProfileCustomer() {
 
         <input
           type="submit"
-          className="btn btn-primary"
+          className="btn btn-primary fs-4"
           disabled={!info.isFormValid}
-          value="Update"
+          value="Register"
           onClick={(e) => {
             submitData(e);
           }}
         />
         <input
           type="reset"
-          className="btn btn-secondary mx-2"
+          className="btn btn-secondary mx-2 fs-4"
           value="Reset"
           onClick={(e) => {
             dispatch({ type: "reset" });

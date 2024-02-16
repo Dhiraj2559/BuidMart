@@ -3,6 +3,7 @@ import { Link, Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import Products from "./Products";
 
 import "../style.css";
+import img1 from "../images/buildmart.jpg"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -68,7 +69,17 @@ export default function CustomerHomepage() {
     //   $("#prd").hide("fast");
     // });
   };
- 
+  // const addToCart = (product) => {
+  //   const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  //   cart.push(product);
+  //   localStorage.setItem("cart", JSON.stringify(cart));
+
+  //   setSuccessMessage("Item added to cart successfully!");
+  //   setAddedToCart((prevState) => ({
+  //     ...prevState,
+  //     [product.p_id]: true,
+  //   }));
+  // };
 
   const addToCart1 = (vpid, uid, qty) => {
     fetch(
@@ -99,8 +110,8 @@ export default function CustomerHomepage() {
       <header className="header container-fluid">
         <ul className="nav navbar">
           <li className="nav-link logo">
-            <Link to="/home" className="nav-link" style={{ fontSize: 40 }}>
-              Build<span className="text-warning">Mart</span>
+            <Link to="/customer" className="nav-link" style={{ fontSize: 40 }}>
+            <img  src={img1} style={{width:"250px", height:"50px"  }} alt="pic"/>
             </Link>
           </li>
           <li className="nav-link">
@@ -151,7 +162,7 @@ export default function CustomerHomepage() {
             className="search-input"
           />
         </div> */}
-        <h5 className="text-info text-center">Welcome <span >{localStorage.getItem("CustomerUser").first_name} {localStorage.getItem("CustomerUser").last_name}</span></h5>
+        <h5 className="text-info text-center">Welcome <span >{user.customer.first_name} {user.customer.last_name}</span></h5>
         {/* <select
           name="ops"
           onChange={(e) => {
@@ -185,14 +196,16 @@ export default function CustomerHomepage() {
                 <option>select Catagories</option>
                 {categories.map((v) => {
                   return <option value={v.id}>{v.name}</option>;
+                 
                 })}
               </select>
             </li>
             {/* {categories.map(v=>{return <li className="nav-item"><Link to={v.name} className="nav-link">{v.name}</Link></li>})} */}
           </ul>
         </div>
+        
       </nav>
-      <div style={{display:catflag?"block":"none"}} className="table-responsive">
+     {/* <div style={{display:catflag?"block":"none"}} className="table-responsive">
         <table id="prd" className="table table-striped table-primary">
           <thead className="thead-dark">
             <tr>
@@ -248,8 +261,8 @@ export default function CustomerHomepage() {
               );
             })}
           </tbody>
-        </table>
-      </div>
+          </table>
+      </div>*/}
    <div  style={{display:prdflag?"block":"none"}}>
       <table  className="table table-striped table-responsive table-success">
         <thead>

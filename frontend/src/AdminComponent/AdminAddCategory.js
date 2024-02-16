@@ -44,15 +44,21 @@ export default function AdminAddCategory(){
         })
   }
     return(
-        <div className="fs-4">
+        
+            <div className="container credit text-center mt-5 login-form-container col-6" style={{ backgroundColor: 'lightblue', padding: '20px', border: '1px solid ', borderRadius: '10px' }}>
+    
             <h1>Category details form</h1>
             <form>
                 <label htmlFor="name">Enter category name</label>
                 <input type="text" id="name" name="name" value={info.name} onChange={(e)=>{dispatch({type:'update', fld:'name', value:e.target.value})}} />
                 <label htmlFor="description">Enter description</label>
                 <input type="text" id="description" name="description" value={info.description} onChange={(e)=>{dispatch({type:'update', fld:'description', value:e.target.value})}} />
-                <button type="button" onClick={()=>{addCategory()}} >Add category</button>
-                <button type="button" onClick={()=>{navigate("/admin")}} >Back</button>
+                <div>
+                <button className="btn btn-outline-primary fs-4 " style={{width:200}} type="button" onClick={()=>{addCategory()}} >Add category</button>
+                </div>
+                <div>
+                <button className="btn btn-outline-primary fs-4 " style={{width:200}} type="button" onClick={()=>{navigate("/admin")}} >Back</button>
+                </div>
             </form>
         </div>
     )

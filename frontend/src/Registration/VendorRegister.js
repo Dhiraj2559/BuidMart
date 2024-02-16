@@ -1,23 +1,23 @@
 import "./shubham.css";
+import "../Styling Files/register.css"
 import { useEffect, useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function LabourRegister() {
+export default function VendorRegister() {
+ 
   const initialState = {
-    fname: { value: "", hasError: false, error: "", touched: false },
-    lname: { value: "", hasError: false, error: "", touched: false },
     email: { value: "", hasError: true, error: "", touched: false },
     cno: { value: "", hasError: true, error: "", touched: false },
+    sname: { value: "", hasError: false, error: "", touched: false },
+    rno: { value: "", hasError: false, error: "", touched: false },
     uname: { value: "", hasError: true, error: "", touched: false },
     pwd: { value: "", hasError: true, error: "", touched: false },
     cpwd: { value: "", hasError: true, error: "", touched: false },
     qid: { value: 0, hasError: false, error: "", touched: false },
     ans: { value: "", hasError: false, error: "", touched: false },
-    exp: { value: 0, hasError: false, error: "", touched: false },
-    stat: { value: "", hasError: false, error: "", touched: false },
-    rates: { value: 0, hasError: false, error: "", touched: false },
-    isFormValid: false,
+    isFormValid: false
   };
+
 
   const reducer = (state, action) => {
     switch (action.type) {
@@ -38,9 +38,10 @@ export default function LabourRegister() {
 
   const [emails, setEmail] = useState([]);
   const [unames, setUname] = useState([]);
+  const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
-    fetch("http://localhost:8080/getLabEmails")
+    fetch("http://localhost:8080/getVendorEmails")
       .then((resp) => resp.json())
       .then((data) => setEmail(data));
   }, []);
@@ -54,6 +55,8 @@ export default function LabourRegister() {
   const handleChange = (name, value) => {
     //a. call validation logic
     const { hasError, error } = validateData(name, value);
+   
+    
 
     //b. check form validity status
     let isFormValid = true;
@@ -104,7 +107,7 @@ export default function LabourRegister() {
         break;
 
       case "cno":
-        var exp1 = /[\d]{10}/;
+        var exp1 = /[\d]{10}$/;
         if (!exp1.test(value)) {
           hasError = true;
           error = "invalid contact number";
@@ -112,7 +115,7 @@ export default function LabourRegister() {
         break;
 
       case "cpwd":
-        if (info.pwd.value != value) {
+        if (info.pwd.value !== value) {
           hasError = true;
           error = "confirm password mismatched";
         }
@@ -124,8 +127,14 @@ export default function LabourRegister() {
 
   const [questions, setQuestion] = useState([]);
 
+  
+
+  
+
+  
+
   useEffect(() => {
-    fetch("http://localhost:8080/getquestions")
+    fetch("http://localhost:8080/getquestions") // this will also throw an error
       .then((resp) => resp.json())
       .then((data) => setQuestion(data));
   }, []);
@@ -136,27 +145,25 @@ export default function LabourRegister() {
 
   const submitData = (e) => {
     e.preventDefault();
-    const Obj = {
-      fname: info.fname.value,
-      lname: info.lname.value,
+
+    const obj = {
       email: info.email.value,
       cno: info.cno.value,
+      sname: info.sname.value,
+      rno: info.rno.value,
       uname: info.uname.value,
       pwd: info.pwd.value,
       qid: info.qid.value,
-      ans: info.ans.value,
-      exp: info.exp.value,
-      stat: info.stat.value,
-      rates: info.rates.value,
+      ans: info.ans.value
     };
 
     var reqOptions = {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify(Obj),
+      body: JSON.stringify(obj),
     };
 
-    fetch("http://localhost:8080/labourRegister", reqOptions)
+    fetch("http://localhost:8080/vendorRegister", reqOptions)
       .then((resp) => {
         if (resp.ok) return resp.text();
         else throw new Error("server error");
@@ -166,42 +173,52 @@ export default function LabourRegister() {
         if (Object.keys(obj).length === 0) {
           setMsg("Invalid username/password");
         } else {
-          navigate("/successregister");
+          navigate("/login");
         }
       });
   };
+  const handleRandomClick = () => {
+    const randomNumber = Math.floor(Math.random() * 100); // Generate a random number between 0 and 99
+    setInputValue(randomNumber.toString());
+  };
 
   return (
-    <div className="container">
+    <div className="container mt-5 login-form-container col-6" style={{ backgroundColor: 'lightblue', padding: '20px', border: '1px solid ', borderRadius: '10px' }}>
+      <div className="credit text-center">
+     <h2 color='Blue'><b>VENDOR REGISTRATION FORM</b></h2>
       <form>
-        <div>
-          <label htmlFor="fname">Enter First name</label>
+       
+      <div className="form-group" >
+          <label htmlFor="sname">Enter shop Name </label>
           <input
             type="text"
-            id="fname"
-            name="fname"
-            value={info.fname.value}
+            id="sname"
+            name="sname"
+            value={info.sname.value}
             onChange={(e) => {
-              handleChange("fname", e.target.value);
+              handleChange("sname", e.target.value);
             }}
           />
         </div>
-        <div>
-          <label htmlFor="lname">Enter Last name</label>
+
+        <div className="form-group" >
+          <label htmlFor="vname">Enter Registration Number</label>
           <input
             type="text"
-            id="lname"
-            name="lname"
-            value={info.lname.value}
+            id="rno"
+            name="rno"
+            value={info.rno.value}
             onChange={(e) => {
-              handleChange("lname", e.target.value);
+              handleChange("rno", e.target.value);
             }}
           />
         </div>
+
+
         <div>
-          <label htmlFor="email">Enter Email id</label>
+          <label htmlFor="email">Enter Email id</label><br/>
           <input
-            type="text"
+            type="email"
             id="email"
             name="email"
             value={info.email.value}
@@ -224,6 +241,7 @@ export default function LabourRegister() {
             type="text"
             id="cno"
             name="cno"
+            maxLength={10}
             value={info.cno.value}
             onChange={(e) => {
               handleChange("cno", e.target.value);
@@ -236,44 +254,6 @@ export default function LabourRegister() {
           >
             {info.cno.error}
           </div>
-        </div>
-        <div>
-          <label htmlFor="exp">Enter Experience</label>
-          <input
-            type="number"
-            id="exp"
-            name="exp"
-            value={info.exp.value}
-            onChange={(e) => {
-              handleChange("exp", e.target.value);
-            }}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="rates">Enter labour charges per day</label>
-          <input
-            type="number"
-            id="rates"
-            name="rates"
-            value={info.rates.value}
-            onChange={(e) => {
-              handleChange("rates", e.target.value);
-            }}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="stat">Enter Status of availability</label>
-          <input
-            type="text"
-            id="stat"
-            name="stat"
-            value={info.stat.value}
-            onChange={(e) => {
-              handleChange("stat", e.target.value);
-            }}
-          />
         </div>
 
         <div>
@@ -338,18 +318,17 @@ export default function LabourRegister() {
         <div>
           <label htmlFor="qid">Select Question for forget password</label>
           <select
-            className="text-center"
             id="qid"
             name="qid"
+            className="fs-4" 
             onChange={(e) => {
               handleChange("qid", e.target.value);
             }}
           >
-            {" "}
-            <option>Select Question</option>
+            <option className="credit text-center">Select Question</option>
             {questions.map((v) => {
               return (
-                <option key={v.id} value={v.id}>
+                <option key={v.id} value={v.id} className="credit text-center">
                   {v.question}
                 </option>
               );
@@ -372,7 +351,7 @@ export default function LabourRegister() {
 
         <input
           type="submit"
-          className="btn btn-primary fs-4 "
+          className="btn btn-primary fs-4"
           disabled={!info.isFormValid}
           value="Register"
           onClick={(e) => {
@@ -389,6 +368,7 @@ export default function LabourRegister() {
         />
       </form>
       <div>{msg}</div>
+      </div>
     </div>
   );
 }

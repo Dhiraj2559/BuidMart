@@ -148,7 +148,7 @@ const submitData1 = () => {
             alert("Password change failed");
             navigate("/login")
         } else {
-            alert("Password change successful");
+            alert("Password change successful ");
             navigate("/login")
         }
     })
@@ -194,7 +194,7 @@ const submitData1 = () => {
               <div>
                 <label htmlFor="pwd">Enter password</label>
                 <input
-                  type="text"
+                  type="password"
                   id="pwd"
                   name="pwd"
                   value={info.pwd.value}
@@ -213,7 +213,7 @@ const submitData1 = () => {
               <div>
                 <label htmlFor="cpwd">Confirm password</label>
                 <input
-                  type="text"
+                  type="password"
                   id="cpwd"
                   name="cpwd"
                   value={info.cpwd.value}

@@ -28,13 +28,13 @@ export default function AdminViewVendor(){
                    <tbody>
                       <tr>
                         <td>
-                            {vendor.shop_name}
+                            {vendor.shopName}
                         </td>
                         <td>
                             {vendor.email}
                         </td>
                         <td>
-                            {vendor.contact_number}
+                            {vendor.contactNumber}
                         </td>
                       </tr>
                    </tbody>

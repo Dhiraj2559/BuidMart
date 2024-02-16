@@ -4,6 +4,7 @@ import { Outlet, Route, Routes, useNavigate } from "react-router";
 
 import "../style.css";
 import { Link } from "react-router-dom";
+import img1 from "../images/buildmart.jpg"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -50,7 +51,7 @@ function VendorHome() {
       .then((resp) => resp.json())
       .then((obj) => {
         setUser(obj);
-        setVendor(obj);
+        setVendor(obj.vendor);
 
         dispatch({
           type: "update",
@@ -186,17 +187,17 @@ function VendorHome() {
       <header className="header container-fluid">
         <ul className="nav navbar">
           <li className="navbar-brand">
-            <Link to="/home" className="nav-link" style={{ fontSize: 40 }}>
-              Build<span>Mart</span>
+            <Link to="/vendor" className="nav-link" style={{ fontSize: 40 }}>
+            <img  src={img1} style={{width:"250px", height:"50px"  }} alt="pic"/>
             </Link>
           </li>
           <li className="nav-link">
-            <Link to="/home" className="nav-link">
+            <Link to="/vendor" className="nav-link">
               HOME
             </Link>
           </li>
           <li className="nav-link">
-            <Link to="/orders" className="nav-link">
+            <Link to="/emps" className="nav-link">
               Order History
             </Link>
           </li>

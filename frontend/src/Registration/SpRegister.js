@@ -1,57 +1,21 @@
+import "./shubham.css";
 import { useEffect, useReducer, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-export default function EditProfileCustomer() {
-  const [us, setUs] = useState();
-  const [user, setUser] = useState();
-  useEffect(() => {
-    const u = JSON.parse(localStorage.getItem("loggedUser"));
-    setUs(u);
-  }, []);
-  alert(us);
-
-  useEffect(() => {
-    fetch("http://localhost:8080/getUserById?id=" + us.id)
-      .then((resp) => resp.json())
-      .then((data) => setUser(data));
-  }, [us]);
-
+export default function SpRegister() {
   const initialState = {
-    uid: { value: user.id, hasError: false, error: "", touched: false },
-    fname: {
-      value: user.customer.first_name,
-      hasError: false,
-      error: "",
-      touched: false,
-    },
-    lname: {
-      value: user.customer.last_name,
-      hasError: false,
-      error: "",
-      touched: false,
-    },
-    email: {
-      value: user.customer.email,
-      hasError: true,
-      error: "",
-      touched: false,
-    },
-    cno: {
-      value: user.customer.contact_number,
-      hasError: true,
-      error: "",
-      touched: false,
-    },
-    uname: { value: user.username, hasError: true, error: "", touched: false },
-    pwd: { value: user.password, hasError: true, error: "", touched: false },
-    cpwd: { value: user.password, hasError: true, error: "", touched: false },
-    qid: {
-      value: user.question.id,
-      hasError: false,
-      error: "",
-      touched: false,
-    },
-    ans: { value: user.answer, hasError: false, error: "", touched: false },
+    fname: { value: "", hasError: false, error: "", touched: false },
+    lname: { value: "", hasError: false, error: "", touched: false },
+    email: { value: "", hasError: true, error: "", touched: false },
+    cno: { value: "", hasError: true, error: "", touched: false },
+    uname: { value: "", hasError: true, error: "", touched: false },
+    pwd: { value: "", hasError: true, error: "", touched: false },
+    cpwd: { value: "", hasError: true, error: "", touched: false },
+    qid: { value: 0, hasError: false, error: "", touched: false },
+    ans: { value: "", hasError: false, error: "", touched: false },
+    exp: { value: 0, hasError: false, error: "", touched: false },
+    stat: { value: "", hasError: false, error: "", touched: false },
+    rates: { value: 0, hasError: false, error: "", touched: false },
     isFormValid: false,
   };
 
@@ -76,7 +40,7 @@ export default function EditProfileCustomer() {
   const [unames, setUname] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/getemails")
+    fetch("http://localhost:8080/getLabEmails")
       .then((resp) => resp.json())
       .then((data) => setEmail(data));
   }, []);
@@ -113,31 +77,21 @@ export default function EditProfileCustomer() {
     let error = "";
     switch (name) {
       case "email":
-        if (value === user.customer.email) {
-          hasError = false;
-          error = "";
-        } else {
-          emails.forEach((element) => {
-            if (element === value) {
-              hasError = true;
-              error = "email already used";
-            }
-          });
-        }
+        emails.forEach((element) => {
+          if (element === value) {
+            hasError = true;
+            error = "email already used";
+          }
+        });
         break;
 
       case "uname":
-        if (value === user.username) {
-          hasError = false;
-          error = "";
-        } else {
-          unames.forEach((element) => {
-            if (element === value) {
-              hasError = true;
-              error = "username already used";
-            }
-          });
-        }
+        unames.forEach((element) => {
+          if (element === value) {
+            hasError = true;
+            error = "username already used";
+          }
+        });
         break;
       case "pwd":
         var exp1 =
@@ -150,15 +104,15 @@ export default function EditProfileCustomer() {
         break;
 
       case "cno":
-        var exp1 = /[\d]{10}/;
-        if (!exp1.test(value)) {
+        var exp2 = /[\d]{10}/;
+        if (!exp2.test(value)) {
           hasError = true;
           error = "invalid contact number";
         }
         break;
 
       case "cpwd":
-        if (info.pwd != value) {
+        if (info.pwd.value !== value) {
           hasError = true;
           error = "confirm password mismatched";
         }
@@ -182,14 +136,27 @@ export default function EditProfileCustomer() {
 
   const submitData = (e) => {
     e.preventDefault();
+    const Obj = {
+      fname: info.fname.value,
+      lname: info.lname.value,
+      email: info.email.value,
+      cno: info.cno.value,
+      uname: info.uname.value,
+      pwd: info.pwd.value,
+      qid: info.qid.value,
+      ans: info.ans.value,
+      exp: info.exp.value,
+      stat: info.stat.value,
+      rates: info.rates.value,
+    };
 
     var reqOptions = {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify(info),
+      body: JSON.stringify(Obj),
     };
 
-    fetch("http://localhost:8080/editCustomer", reqOptions)
+    fetch("http://localhost:8080/labourRegister", reqOptions)
       .then((resp) => {
         if (resp.ok) return resp.text();
         else throw new Error("server error");
@@ -199,15 +166,15 @@ export default function EditProfileCustomer() {
         if (Object.keys(obj).length === 0) {
           setMsg("Invalid username/password");
         } else {
-          navigate("/editsucces");
+          navigate("/successregister");
         }
       });
   };
 
   return (
-    <div className="container fs-4">
+    <div className="container">
       <form>
-        <div className="mb-3">
+        <div>
           <label htmlFor="fname">Enter First name</label>
           <input
             type="text"
@@ -271,6 +238,45 @@ export default function EditProfileCustomer() {
           </div>
         </div>
         <div>
+          <label htmlFor="exp">Enter Experience</label>
+          <input
+            type="number"
+            id="exp"
+            name="exp"
+            value={info.exp.value}
+            onChange={(e) => {
+              handleChange("exp", e.target.value);
+            }}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="rates">Enter labour charges per day</label>
+          <input
+            type="number"
+            id="rates"
+            name="rates"
+            value={info.rates.value}
+            onChange={(e) => {
+              handleChange("rates", e.target.value);
+            }}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="stat">Enter Status of availability</label>
+          <input
+            type="text"
+            id="stat"
+            name="stat"
+            value={info.stat.value}
+            onChange={(e) => {
+              handleChange("stat", e.target.value);
+            }}
+          />
+        </div>
+
+        <div>
           <label htmlFor="uname">Enter username</label>
           <input
             type="text"
@@ -293,7 +299,7 @@ export default function EditProfileCustomer() {
         <div>
           <label htmlFor="pwd">Enter password</label>
           <input
-            type="text"
+            type="password"
             id="pwd"
             name="pwd"
             value={info.pwd.value}
@@ -312,7 +318,7 @@ export default function EditProfileCustomer() {
         <div>
           <label htmlFor="cpwd">Confirm password</label>
           <input
-            type="text"
+            type="password"
             id="cpwd"
             name="cpwd"
             value={info.cpwd.value}
@@ -332,12 +338,15 @@ export default function EditProfileCustomer() {
         <div>
           <label htmlFor="qid">Select Question for forget password</label>
           <select
+            className="text-center"
             id="qid"
             name="qid"
             onChange={(e) => {
               handleChange("qid", e.target.value);
             }}
           >
+            {" "}
+            <option>Select Question</option>
             {questions.map((v) => {
               return (
                 <option key={v.id} value={v.id}>
@@ -363,16 +372,16 @@ export default function EditProfileCustomer() {
 
         <input
           type="submit"
-          className="btn btn-primary"
+          className="btn btn-primary fs-4 "
           disabled={!info.isFormValid}
-          value="Update"
+          value="Register"
           onClick={(e) => {
             submitData(e);
           }}
         />
         <input
           type="reset"
-          className="btn btn-secondary mx-2"
+          className="btn btn-secondary mx-2 fs-4"
           value="Reset"
           onClick={(e) => {
             dispatch({ type: "reset" });

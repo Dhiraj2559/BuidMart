@@ -1,5 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import img from "../images/logo.webp"
+import img1 from "../images//BML.png"
 
 export default function AdminHome() {
     return (
@@ -9,11 +11,11 @@ export default function AdminHome() {
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
-                            <Link to="/" className='nav-link px-3'>
-                            Build<span className="text-warning">Mart</span>
+                            <Link to="/admin" className='nav-link px-3'>
+                            <img  src={img1} style={{width:"250px", height:"50px"  }} alt="pic"/>
                             </Link>
                             <li className="nav-item ">
-                                <Link to="/home" className='nav-link px-3'>Home</Link>
+                                <Link to="/admin" className='nav-link px-3'>Home</Link>
                             </li>
                             <li className="nav-item">
                                 <Link to="/v_categories" className='nav-link px-3'>View Categories</Link>
@@ -23,7 +25,7 @@ export default function AdminHome() {
                             </li>
                             <li className="nav-item">
                                 <Link to="/add_product" className='nav-link px-3'>Add Product</Link>
-    </li>
+                            </li>
                             <li className="nav-item">
                                 <Link to="/v_vendors" className='nav-link px-3'>View Vendors</Link>
                             </li>
@@ -39,6 +41,13 @@ export default function AdminHome() {
 
                 </nav>
               
+            </div>
+
+            <div className=' credit text-center'>
+                <br/>
+            <h1>Welcome to Buidlmart</h1>
+        <img  src={img} style={{width:"500px", height:"300px"  }} alt="pic"/>
+
             </div>
         </div>
     )

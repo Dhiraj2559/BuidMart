@@ -34,32 +34,40 @@ import {
   faLinkedin as fabLinkedin,
 } from "@fortawesome/free-brands-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
+import CompanyRegister from "./Registration/CompanyRegister.js";
 import { useState } from "react";
+import CustomerRegister from "./Registration/CustomerRegister.js";
+import VendorRegister from "./Registration/VendorRegister.js";
+// import LabourRegister from "./Registration/SpRegister.js";
 import Login from "./MainHome/Login.js";
-import LoginSuccess from "./MainHome/LoginSuccess.js";
+// import LoginSuccess from "./MainHome/LoginSuccess.js";
 import { useSelector } from "react-redux";
 import CustomerHomepage from "./CustomerComponent/CustomerHomepage.js";
 import VendorHome from "./VendorComponent/VendorHome.js";
+import EditProfileCustomer from "./CustomerComponent/EditProfileCustomer.js";
+import ViewCart from "./CustomerComponent/ViewCart.js";
+import Logout from "./MainHome/Logout.js";
+import ViewProfile from "./CustomerComponent/ViewProfile.js";
+import Mailer from "./MainHome/Mailer.js";
+import EditProduct from "./VendorComponent/EditProduct.js";
+import MyOreders from "./CustomerComponent/MyOrders.js";
+import OrderSuccess from "./CustomerComponent/OrderSuccess.js";
+import ForgotPassword from "./MainHome/ForgotPassword.js";
+import AdminHome from "./AdminComponent/AdminHome.js";
+import AdminViewCategories from "./AdminComponent/AdminViewCategories.js";
+import AdminViewCustomer from "./AdminComponent/AdminViewCustomer.js";
+import AdminViewVendor from "./AdminComponent/AdminViewVendor.js";
+import AdminViewAllVendors from "./AdminComponent/AdminViewAllVendors.js";
+import AdminViewAllCustomers from "./AdminComponent/AdminViewAllCustomers.js";
+import AdminAddCategory from "./AdminComponent/AdminAddCategory.js";
+
+import AddCategorySuccess from "./AdminComponent/AddCategorySuccess.js";
+import VendorOrderItems from "./VendorComponent/VendorOrderItems.js";
 
 import {useNavigate } from "react-router-dom";
-import RegistrationForm from "./CustomerComponent/regstration.js";
-import ShopRegistrationForm from "./Registration/ShopkeeperRegister.js";
-import ServiceRegistrationForm from "./Registration/ServiceRegister.js";
-import AdminHome from "./AdminComponents/AdminHome.js";
-import AddCategorySuccess from "./AdminComponents/AddCategorySuccess.js";
-import AdminViewCategories from "./AdminComponents/AdminViewCategories.js";
-import AdminViewCustomer from "./AdminComponents/AdminViewCustomer.js";
-import AdminViewVendor from "./AdminComponents/AdminViewVendor.js";
-import AdminViewAllVendors from "./AdminComponents/AdminViewAllVendors.js";
-import AdminViewAllCustomers from "./AdminComponents/AdminViewAllCustomers.js";
-import AdminAddCategory from "./AdminComponents/AdminAddCategory.js";
-import Logout from "./MainHome/Logout.js";
-import VendorOrderItems from "./VendorComponent/VendorOrderItems.js";
 import OrderHistory from "./VendorComponent/OrderHistory.js";
-import EditProduct from "./VendorComponent/EditProduct.js";
-import ViewProfile from "./CustomerComponent/ViewProfile.js";
-import EditProfileCustomer from "./CustomerComponent/EditProfileCustomer.js";
-import AdminAddProduct from "./AdminComponents/AdminAddProduct.js";
+import SpRegister from "./Registration/SpRegister.js";
+import AdminAddProduct from "./AdminComponent/AdminAddProduct.js";
 library.add(faStar);
 
 function App() {
@@ -92,15 +100,18 @@ function App() {
             <li>
             <select name="role" className="nav-link fs-4" onChange={(e)=>{navigate(e.target.value)}}>
                 <option><p className="fs-4">New Here? Register</p></option>
-                <option value="/userRegister"><a href="/userRegister" >
+                <option value="/custregister"><a href="/custregister" >
                                               Customer Registration</a>
                 </option>
+                {/* <option value="/companyregister"><a href="/companyregister" className="nav-link">
+                                             Company Registration</a>
+                </option> */}
                 <option value="/vendorregister"><a href="/vendorregister" className="nav-link">
                                           Vendor Registration</a>
                 </option>
-                <option value="/labourregister"><a href="/labourregister" className="nav-link">
-                                            Service Provider Registration</a>
-                </option>
+                {/* <option value="/spregister"><a href="/spregister" className="nav-link">
+                                            Service provider Registration</a>
+                </option> */}
               </select>
             </li>
           </ul>
@@ -111,32 +122,40 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/home" element={<Home />}></Route>
           <Route path="/login" element={<Login />}></Route>
-          <Route path="/logout" element={<Logout />}></Route>
-          <Route path="/userRegister" element={<RegistrationForm />}></Route>
-          <Route path="/vendorregister" element={<ShopRegistrationForm />}></Route>
-          <Route path="/labourregister" element={<ServiceRegistrationForm />}></Route>
+          <Route path="/custregister" element={<CustomerRegister />}></Route>
+          {/* <Route path="/companyregister" element={<CompanyRegister />}></Route> */}
+          <Route path="/vendorregister" element={<VendorRegister />}></Route>
+          <Route path="/spregister" element={<SpRegister />}></Route>
           <Route path="/customer" element={<CustomerHomepage />}></Route>
+          <Route path="/editprofilecust" element={<EditProfileCustomer />} />
+          <Route path="/viewProfile" element={<ViewProfile />} />
+          <Route path="/viewCart" element={<ViewCart />} />
+          <Route path="/feedback" element={<Mailer />} />
+          <Route path="/editproduct" element={<EditProduct />}>
+            {" "}
+          </Route>
+          <Route path="/myOrders" element={<MyOreders />}></Route>
+          <Route path="/logout" element={<Logout />}></Route>
+          {/* <Route path="/check" element={<VendorHome/>}></Route> */}
           <Route path="/vendor" element={<VendorHome />}></Route>
           <Route path="/admin" element={<AdminHome />}></Route>
+          <Route path="/ordersuccess" element={<OrderSuccess />}></Route>
+          <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
 
 
           <Route path="/v_categories" element={<AdminViewCategories />}></Route>
           <Route path="/add_category" element={<AdminAddCategory />}></Route>
+          <Route path="/add_product" element={<AdminAddProduct />}></Route>
           <Route path="/v_vendors" element={<AdminViewAllVendors />}></Route>
           <Route path="/v_customers" element={<AdminViewAllCustomers />}></Route>
           <Route path="/viewCustomer/:id/" element={<AdminViewCustomer />}></Route>
           <Route path="/categoryaddsuccess" element={<AddCategorySuccess />}></Route>
           <Route path="/viewVendor/:id/" element={<AdminViewVendor />}></Route>
           <Route path="/addnewcategory" element={<AdminAddCategory />}></Route>
-          <Route path="/add_product" element={<AdminAddProduct />}></Route>
-          
 
-          <Route path="/viewProfile" element={<ViewProfile />} />
-          <Route path="/editprofile" element={<EditProfileCustomer />} />
-          <Route path="/orders" element={<OrderHistory />}></Route>
+
           <Route path="/vieworderitems" element={<VendorOrderItems />}></Route>
-          <Route path="/editproduct" element={<EditProduct />}>{" "}</Route>
-
+          <Route path="/emps" element={<OrderHistory />}></Route>
 
         </Routes>
       </body>
@@ -147,12 +166,13 @@ function App() {
           
 
           <div className="credit text-center">
+            <br/>
             {" "}
             Created by{" "}
             <span className="text-danger">
-              | DHIRAJ NAGARGOJE | GAJANAN SHINDE | RUSHIKESH NIKAM | SUYASH BHONDE |
+            | DHIRAJ NAGARGOJE | GAJANAN SHINDE | RUSHIKESH NIKAM | SUYASH BHONDE |
             </span>{" "}
-            all rights reserved!{" "}
+            PG-DAC Sep-2023{" "}
           </div>
         </section>
       </footer>

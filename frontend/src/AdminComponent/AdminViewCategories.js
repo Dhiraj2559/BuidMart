@@ -14,8 +14,9 @@ export default function AdminViewCategories(){
    
     return(
           <div className="fs-4">
-               <h1>List of all categories</h1>
-               <table  className="table table-bordered table-responsive table-striped table-info">
+               <h1 className="credit text-center"><br/>List of all categories</h1>
+               {/* className="container credit text-center mt-5 login-form-container col-8" */}
+               <table  className="table table-bordered table-responsive table-striped table-info container credit text-center mt-5 login-form-container col-6">
                    <thead>
                         <tr>
                             <th>Category name</th>

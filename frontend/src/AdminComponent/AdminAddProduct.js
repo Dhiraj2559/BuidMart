@@ -63,7 +63,7 @@ export default function AdminAddProduct(){
         })
   }
     return(
-        <div className="fs-4">
+        <div className="container mt-5 login-form-container col-6 credit text-center" style={{ backgroundColor: 'lightblue', padding: '20px', border: '1px solid ', borderRadius: '10px' }}>
             <h1>Products details form</h1>
             <form>
                 <label htmlFor="product_name">Enter Product Name</label>
@@ -87,10 +87,10 @@ export default function AdminAddProduct(){
                   editProduct(e);
                 }}
               >
-                <option>Select Category</option>
+                <option className=' credit text-center'>Select Category</option>
                 {categories.map((v) => {
                   return (
-                    <option key={v.id} value={v.id}>
+                    <option key={v.id} value={v.id} className=' credit text-center'>
                       {v.name}
                     </option>
                   );
@@ -98,9 +98,11 @@ export default function AdminAddProduct(){
               </select>
             </div>
                 <label htmlFor="picture">Enter picture</label>
-                <input type="file" name="file" id="file"/>
-                <button type="button" onClick={()=>{addProduct()}} >Add Product</button>
-                <button type="button" onClick={()=>{navigate("/admin")}} >Back</button>
+                <div className=' credit text-center'><input  type="file" name="file" id="file"/></div>
+               <div>
+                <button className="btn btn-outline-primary fs-4 " style={{width:200}} type="button" onClick={()=>{addProduct()}} >Add Product</button></div>
+                <div>
+                <button className="btn btn-outline-primary fs-4 " style={{width:200}} type="button" onClick={()=>{navigate("/admin")}} >Back</button></div>
             </form>
         </div>
     )

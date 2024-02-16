@@ -161,14 +161,18 @@ export default function CustomerRegister() {
         if (Object.keys(obj).length === 0) {
           setMsg("Invalid username/password");
         } else {
-          navigate("/successregister");
+          navigate("/login");
         }
       });
   };
 
   return (
     <section className="h-100 h-custom">
-    <div className="container">
+
+    <div className="container mt-5 login-form-container col-8 " style={{ backgroundColor: 'lightblue', padding: '20px', border: '1px solid ', borderRadius: '10px' }}>
+     <div className="credit text-center">
+     <h2 color='Blue'><b>USER REGISTRATION FORM</b></h2>
+     
       <form>
         <div className="mb-3">
           <label htmlFor="fname">Enter First name</label>
@@ -303,10 +307,10 @@ export default function CustomerRegister() {
             }}
           >
             {" "}
-            <option>Select Question</option>
+            <option className="credit text-center">Select Question</option>
             {questions.map((v) => {
               return (
-                <option key={v.id} value={v.id}>
+                <option key={v.id} value={v.id} className="credit text-center">
                   {v.question}
                 </option>
               );
@@ -346,6 +350,7 @@ export default function CustomerRegister() {
         />
       </form>
       <div>{msg}</div>
+    </div>
     </div>
     </section>
   );
