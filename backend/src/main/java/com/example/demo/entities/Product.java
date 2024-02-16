@@ -41,15 +41,23 @@ public class Product {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Product(int id, String productName, String description, String stockQuantity, Category category,
-			List<Vendor_Product> vendorProductList) {
+	public Product(int id, String productName, String description, String stockQuantity, Category category) {
 		super();
 		this.id = id;
 		this.productName = productName;
 		this.description = description;
 		this.stockQuantity = stockQuantity;
 		this.category = category;
-		this.vendorProductList = vendorProductList;
+	}
+	
+
+	public Product(String productName, String description, String stockQuantity, byte[] picture, Category category) {
+		super();
+		this.productName = productName;
+		this.description = description;
+		this.stockQuantity = stockQuantity;
+		this.picture = picture;
+		this.category = category;
 	}
 
 	public Product(String productName, String description, String stockQuantity, Category category,
@@ -72,14 +80,6 @@ public class Product {
 		this.picture = picture;
 		this.category = category;
 		this.vendorProductList = vendorProductList;
-	}
-	public Product(String productName, String description, String stockQuantity, byte[] picture, Category category) {
-		super();
-		this.productName = productName;
-		this.description = description;
-		this.stockQuantity = stockQuantity;
-		this.picture = picture;
-		this.category = category;
 	}
 
 	public int getId() {
@@ -138,11 +138,6 @@ public class Product {
 		this.picture = picture;
 	}
 
-	
-
-	
-	
-    
      
     
 }

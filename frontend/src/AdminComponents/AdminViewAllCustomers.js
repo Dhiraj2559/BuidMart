@@ -12,7 +12,7 @@ export default function AdminViewAllCustomers(){
         .then(data=>setCustomers(data))
     },[])
     return(
-        <div className="fs-4">
+        <div  className="container mt-5 login-form-container col-10">
             <h1>All customers list</h1>
             <table className="table table-bordered table-responsive table-striped">
                    <thead>

@@ -12,7 +12,7 @@ export default function AdminViewAllVendors(){
         .then(data=>setVendors(data))
     },[])
     return(
-        <div className="fs-4">
+        <div  className="container mt-5 login-form-container col-10">
             <h1>All vendors list</h1>
              <table className="table table-bordered table-responsive table-striped">
                    <thead>

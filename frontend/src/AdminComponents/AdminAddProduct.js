@@ -63,7 +63,7 @@ export default function AdminAddProduct(){
         })
   }
     return(
-        <div className="fs-4">
+        <div className="container mt-5 login-form-container col-8">
             <h1>Products details form</h1>
             <form>
                 <label htmlFor="product_name">Enter Product Name</label>
@@ -99,8 +99,8 @@ export default function AdminAddProduct(){
             </div>
                 <label htmlFor="picture">Enter picture</label>
                 <input type="file" name="file" id="file"/>
-                <button type="button" onClick={()=>{addProduct()}} >Add Product</button>
-                <button type="button" onClick={()=>{navigate("/admin")}} >Back</button>
+                <button type="button" className="btn btn-outline-primary fs-5" style={{width:200}} onClick={()=>{addProduct()}} >Add Product</button>
+                <button type="button" className="btn btn-outline-primary fs-5" style={{width:200}} onClick={()=>{navigate("/admin")}} >Back</button>
             </form>
         </div>
     )

@@ -69,6 +69,8 @@ export default function Login() {
       .catch((error) => setMs("server error. Try again"));
   };
   return (
+
+
     <div className="container mt-5 login-form-container col-6" style={{ backgroundColor: 'lightblue', padding: '20px', border: '1px solid ', borderRadius: '10px' }}>
       <form>
         <div className="credit text-center">
@@ -86,7 +88,7 @@ export default function Login() {
               });
             }}
           />
-          <br />
+          {/* <br /> */}
         </div>
         <div className="credit text-center">
           <label htmlFor="password" className="form-label">Password :</label>
@@ -105,6 +107,7 @@ export default function Login() {
           />
           <br />
         </div>
+        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '3vh'}}>
         <button
           className="btn btn-outline-primary fs-4"
           type="submit"
@@ -113,7 +116,11 @@ export default function Login() {
         >
           Login
         </button>
-        <span><a href="/forgotpassword" style={{width:200}} className="btn btn-outline-primary">forgot password</a></span> <br />
+        </div>
+       
+        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <span><a href="/forgotpassword" style={{width:200}} className="btn btn-outline-primary">forgot password</a></span>
+        </div>
       </form>
       <div>{msg}</div>
       <div className="credit text-center text-danger"><b>{ms}</b></div>

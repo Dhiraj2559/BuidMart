@@ -13,8 +13,8 @@ export default function AdminViewCategories(){
     },[])
    
     return(
-          <div className="fs-4">
-               <h1>List of all categories</h1>
+          <div className="container mt-5 login-form-container col-8">
+               <h1  className="credit text-center">List of all categories</h1>
                <table  className="table table-bordered table-responsive table-striped table-info">
                    <thead>
                         <tr>
@@ -32,8 +32,8 @@ export default function AdminViewCategories(){
                         }) }
                    </tbody>
                </table>
-               <button type="button" className="btn btn-outline-primary" onClick={()=>{navigate("/addnewcategory")}}>Add new Category</button>
-               <button type="button" className="btn btn-outline-primary" onClick={()=>{navigate("/admin")}}>Back to homepage</button>
+               <button  className="btn btn-outline-primary fs-5" style={{width:200}} type="button" onClick={()=>{navigate("/addnewcategory")}}>Add new Category</button> 
+               <button  className="btn btn-outline-primary fs-5" style={{width:200}} type="button" onClick={()=>{navigate("/admin")}}>Back to homepage</button>
           </div>
     )
 }
