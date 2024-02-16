@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entities.Category;
 import com.example.demo.entities.Product;
 import com.example.demo.repositories.Product_Repo;
 
@@ -37,11 +36,14 @@ public class Product_Service {
 		}
 		return p;
 	}
-	public Product saveProduct(Product c) {
-		
-		return prepo.save(c);
+	public List<Product> getAvailableProducts(int ccid)
+	{
+		return prepo.getAvailableProducts(ccid);
 	}
-	
+	public Product addProduct(Product p) {
+		
+		return prepo.save(p);
+	}
 
 	
 }

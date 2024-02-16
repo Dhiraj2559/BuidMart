@@ -31,7 +31,7 @@ public class Vendor_Product {
     @JsonIgnoreProperties("vendorProductList")
     @ManyToOne(cascade = CascadeType.ALL)
 	  @JoinColumn(name="vendor_id")
-    private User vendor;
+    private Construction_Material_Vendor vendor;
     
     @JsonIgnoreProperties("vendorProductList")
     @ManyToOne(cascade = CascadeType.ALL)
@@ -44,7 +44,7 @@ public class Vendor_Product {
 	}
 
 	public Vendor_Product(int id, int quantity, double price, int offerPercentage, Date offerValidDate,
-			User vendor, Product product) {
+			Construction_Material_Vendor vendor, Product product) {
 		super();
 		this.id = id;
 		this.quantity = quantity;
@@ -56,7 +56,7 @@ public class Vendor_Product {
 	}
 
 	public Vendor_Product(int quantity, double price, int offerPercentage, Date offerValidDate,
-			User vendor, Product product) {
+			Construction_Material_Vendor vendor, Product product) {
 		super();
 		this.quantity = quantity;
 		this.price = price;
@@ -106,11 +106,11 @@ public class Vendor_Product {
 		this.offerValidDate = offerValidDate;
 	}
 
-	public User getVendor() {
+	public Construction_Material_Vendor getVendor() {
 		return vendor;
 	}
 
-	public void setVendor(User vendor) {
+	public void setVendor(Construction_Material_Vendor vendor) {
 		this.vendor = vendor;
 	}
 

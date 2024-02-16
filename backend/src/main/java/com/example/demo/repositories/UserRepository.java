@@ -9,24 +9,23 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.entities.Login;
 import com.example.demo.entities.User;
 @Repository
+@Transactional
 public interface UserRepository extends JpaRepository<User, Integer> {
-
-	@Query("select u from User u where login_id =:id")
-	public User getUserByLoginId(int id);
-
-	@Query(value="select * from users where shop_name is not null",nativeQuery = true)
-	public List<User> findAllVendors();
 	
-	@Query("select v.email from User v where role_id=2")
-	 public String[] getVendorEmails();
+	@Query("select u from User u where username=:uname and password=:pass")
+	public User checkLogin(String uname,String pass);
+	
+	@Query("select u.username from User u")
+	public String[] getUnames();
+	
+	@Query(value = "select * from Users where username=:uname",nativeQuery = true)
+	public User getUserByUsername(String uname);
+	
+	@Modifying
+	@Query(value ="update  users set password=:pass where username=:uname",nativeQuery = true)
+	public int changePass(String uname,String pass);
 
-	@Query("select v.email from User v where role_id=1")
-	public String[] getCustomerEmails();
-
-	@Query(value="select * from users where role_id=1",nativeQuery = true)
-	public List<User> findAllCustomers();
 
 }

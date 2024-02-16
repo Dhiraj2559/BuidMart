@@ -16,6 +16,11 @@ public interface Product_Repo extends JpaRepository<Product, Integer> {
 	public List<Product> getProductsByCid(int cid);
 	
 	
+	@Query(value = "select * from products p,vendor_product v where p.cid=:ccid and (v.product_id=p.id)",nativeQuery = true)
+	public List<Product> getAvailableProducts(int ccid);
+	
+
+	
+	
 
 }
-

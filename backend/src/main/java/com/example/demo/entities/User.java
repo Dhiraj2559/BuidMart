@@ -26,188 +26,293 @@ public class User {
 	private int id;
 	
 	@Column
-	private String first_name;
+	private String username;
 	
 	@Column
-	private String last_name;
+	private String password;
 
-	@Column
-	private String contact_number;
-	
-	@Column
-	private String email;
+
+	@Column(name = "answer")
+	 private String answer;
 
 	@ManyToOne
 	@Cascade(value = CascadeType.ALL)
 	@JoinColumn(name="role_id")
 	Role role;
 	
-	@OneToOne
+	
+   
+  	@ManyToOne
+ 	@Cascade(value = CascadeType.ALL)
+ 	@JoinColumn(name="question_id")
+    private Question question ;
+	
+	@Column
+	private String active_status;
+
+	
+	@JsonIgnoreProperties("user")
+	@OneToOne(mappedBy = "user")
 	@Cascade(value = CascadeType.ALL)
-	@JoinColumn(name="login_id")
-	Login log;
+	Construction_Material_Vendor vendor;
 	
-	@Column
-	private String shop_name;
+	@JsonIgnoreProperties("user")
+	@OneToOne(mappedBy = "user")
+	@Cascade(value = CascadeType.ALL)
+	Construction_Company company;
 	
-	@Column
-	private int experience;
+	@JsonIgnoreProperties("user")
+	@OneToOne(mappedBy = "user")
+	@Cascade(value = CascadeType.ALL)
+	Individual_Customer customer;
 	
-	@Column
-	private float rates;
+	@JsonIgnoreProperties("user")
+	@OneToOne(mappedBy = "user")
+	@Cascade(value = CascadeType.ALL)
+	Service_providers sp;
 	
-	@Column
-	private String status;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getFirst_name() {
-		return first_name;
-	}
-
-	public void setFirst_name(String first_name) {
-		this.first_name = first_name;
-	}
-
-	public String getLast_name() {
-		return last_name;
-	}
-
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
-	}
-
-	public String getContact_number() {
-		return contact_number;
-	}
-
-	public void setContact_number(String contact_number) {
-		this.contact_number = contact_number;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
-	public Login getLog() {
-		return log;
-	}
-
-	public void setLog(Login log) {
-		this.log = log;
-	}
-
-	public String getShop_name() {
-		return shop_name;
-	}
-
-	public void setShop_name(String shop_name) {
-		this.shop_name = shop_name;
-	}
-
-	public int getExperience() {
-		return experience;
-	}
-
-	public void setExperience(int experience) {
-		this.experience = experience;
-	}
-
-	public float getRates() {
-		return rates;
-	}
-
-	public void setRates(float rates) {
-		this.rates = rates;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
+//	@JsonIgnoreProperties("user")
+//	@OneToMany(mappedBy = "user")
+//	@Cascade(value = CascadeType.ALL)
+//	Set<Address>addresses;
+	
+	
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String first_name, String last_name, String contact_number, String email, Role role, Login log,
-			String shop_name, int experience, float rates, String status) {
+
+	
+
+	public User(int id, String username, String password, String answer, Role role, Question question,
+			String active_status,Construction_Material_Vendor vendor,
+			Construction_Company company, Individual_Customer customer, Service_providers sp) {
 		super();
-		this.first_name = first_name;
-		this.last_name = last_name;
-		this.contact_number = contact_number;
-		this.email = email;
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.answer = answer;
 		this.role = role;
-		this.log = log;
-		this.shop_name = shop_name;
-		this.experience = experience;
-		this.rates = rates;
-		this.status = status;
+		this.question = question;
+		this.active_status = active_status;
+		this.vendor = vendor;
+		this.company = company;
+		this.customer = customer;
+		this.sp = sp;
+	
 	}
 
-	public User(String first_name1, String last_name1, String contact_number1, String email, Role role, Login log) {
-		// TODO Auto-generated constructor stub
+
+
+
+	
+	
+
+	public User(String username, String password, String answer, Role role, Question question, String active_status,
+			 Construction_Material_Vendor vendor, Construction_Company company,
+			Individual_Customer customer, Service_providers sp) {
 		super();
-		this.first_name = first_name1;
-		this.last_name = last_name1;
-		this.contact_number = contact_number1;
-		this.email = email;
+		this.username = username;
+		this.password = password;
+		this.answer = answer;
 		this.role = role;
-		this.log = log;
+		this.question = question;
+		this.active_status = active_status;
+	
+		this.vendor = vendor;
+		this.company = company;
+		this.customer = customer;
+		this.sp = sp;
+		
 	}
 
-	public User(String first_name, String last_name, String contact_number, String email, Role role, Login log,
-			String shop_name) {
+
+
+
+	public User(String username, String password, String answer, Role role, Question question) {
 		super();
-		this.first_name = first_name;
-		this.last_name = last_name;
-		this.contact_number = contact_number;
-		this.email = email;
+		this.username = username;
+		this.password = password;
+		this.answer = answer;
 		this.role = role;
-		this.log = log;
-		this.shop_name = shop_name;
+		this.question = question;
 	}
-	public User(String first_name, String last_name, String contact_number, String email, Role role, Login log,
-			int experience, float rates, String status) {
-		super();
-		this.first_name = first_name;
-		this.last_name = last_name;
-		this.contact_number = contact_number;
-		this.email = email;
+
+
+
+
+	public int getId() {
+		return id;
+	}
+
+
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+
+
+	public String getAnswer() {
+		return answer;
+	}
+
+
+
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+
+
+
+
+	public Role getRole() {
+		return role;
+	}
+
+
+
+
+	public void setRole(Role role) {
 		this.role = role;
-		this.log = log;
-		this.experience = experience;
-		this.rates = rates;
-		this.status = status;
 	}
+
+
+
+
+	public Question getQuestion() {
+		return question;
+	}
+
+
+
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+
+
+
+
+	public String getActive_status() {
+		return active_status;
+	}
+
+
+
+
+	public void setActive_status(String active_status) {
+		this.active_status = active_status;
+	}
+
+
+
+
+
+
+	public Construction_Material_Vendor getVendor() {
+		return vendor;
+	}
+
+
+
+
+	public void setVendor(Construction_Material_Vendor vendor) {
+		this.vendor = vendor;
+	}
+
+
+
+
+	public Construction_Company getCompany() {
+		return company;
+	}
+
+
+
+
+	public void setCompany(Construction_Company company) {
+		this.company = company;
+	}
+
+
+
+
+	public Individual_Customer getCustomer() {
+		return customer;
+	}
+
+
+
+
+	public void setCustomer(Individual_Customer customer) {
+		this.customer = customer;
+	}
+
+
+	
+
+
+
+
+
+
+	public Service_providers getSp() {
+		return sp;
+	}
+
+
+
+
+	public void setSp(Service_providers sp) {
+		this.sp = sp;
+	}
+
+
+
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", first_name=" + first_name + ", last_name=" + last_name + ", contact_number="
-				+ contact_number + ", email=" + email + ", role=" + role + ", log=" + log + ", shop_name=" + shop_name
-				+ ", experience=" + experience + ", rates=" + rates + ", status=" + status + "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", answer=" + answer + ", role="
+				+ role + ", question=" + question + ", active_status=" + active_status + "]";
 	}
+
+
+
+    
 	
 	
+
 }

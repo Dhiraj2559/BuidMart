@@ -14,7 +14,7 @@ export default function AdminViewVendor(){
         .then(data=>setVendor(data))
     },[])
     return(
-        <div className="fs-4">
+        <div  className="container mt-5 login-form-container col-10">
             <h1>Vendor Details</h1>
             <div>
                 <table className="table table-bordered table-responsive table-striped">
