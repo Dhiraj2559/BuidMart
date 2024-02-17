@@ -1,4 +1,3 @@
- 	 	
 import { useEffect, useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -6,8 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function EditProduct() {
 
-  const [vendorproduct, setVendorproduct] = useState({});
-  const [product, setProduct] = useState({});
 
 const navigate =useNavigate();
   
@@ -34,38 +31,24 @@ const navigate =useNavigate();
 
   const [editedProduct, dispatch] = useReducer(reducer, initialState);
 
-  useEffect(() => {
-    // const selectedtour = location.state.v ;
-    const v = localStorage.getItem("v");
-    console.log("v in edit"+v);
-    fetch("http://localhost:8080/getVendorProduct?vpid=" +v)
-      .then((resp) => resp.json())
-      .then((data) => {
-        setVendorproduct(data);
-        console.log(vendorproduct)
+  useEffect(()=>{
+    const eprod=JSON.parse( localStorage.getItem("editingpr"));
+        dispatch({ type: "update", fid: "product_id", value: eprod.product.getId });
+        dispatch({ type: "update", fid: "name", value: eprod.product.productName});
+        dispatch({ type: "update", fid: "vpid", value: eprod.id });
+        dispatch({ type: "update", fid: "quantity", value: eprod.quantity});
+        dispatch({ type: "update", fid: "price", value: eprod.price });
+        dispatch({ type: "update", fid: "offer_percentage", value: eprod.offerPercentage});
+        dispatch({ type: "update", fid: "offer_valid_date", value: eprod.offerValidDate});
+  },[])
 
-        // Fetch product data using vendorproduct.product.id
-        fetch("http://localhost:8080/getProductById?pid=" + vendorproduct.product.id)
-          .then((resp) => resp.json())
-          .then((data) => setProduct(data))
-          .then(() => {
-            // Dispatch actions here after fetching data
-            dispatch({ type: "update", fid: "vpid", value: vendorproduct.id });
-            dispatch({ type: "update", fid: "product_id", value: vendorproduct.product.id });
-            dispatch({ type: "update", fid: "quantity", value: vendorproduct.quantity });
-            dispatch({ type: "update", fid: "price", value: vendorproduct.price });
-            dispatch({ type: "update", fid: "offer_percentage", value: vendorproduct.offerPercentage });
-            dispatch({ type: "update", fid: "offer_valid_date", value: vendorproduct.offerValidDate });
-          });
-      });
-  },[]);
 
-  // console.log(vendorproduct)
-  console.log(product)
+
+  const ee=JSON.parse( localStorage.getItem("editingpr"));
 
   const addProduct = () => {
 
-    // console.log(editedProduct)
+   
     var reqOptions = {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -75,7 +58,7 @@ const navigate =useNavigate();
     fetch("http://localhost:8080/editExistingProduct", reqOptions)
       .then((resp) => {
         if (resp.ok) {
-          alert("Product Edited");
+          // alert("Product Edited");
           navigate('/vendor');
         } else alert("Failed to Edit Product");
         
@@ -88,12 +71,12 @@ const navigate =useNavigate();
         <div className="container mt-5">
           <form>
             <div>
-              <label htmlFor="price">Product Name</label>
+              <label htmlFor="name">Product Name</label>
               <input
                 type="text"
-                id="price"
-                name="price"
-                value={product.productName}
+                id="name"
+                name="name"
+                value={ee.product.productName}
                 readOnly
               />
             </div>
@@ -103,7 +86,8 @@ const navigate =useNavigate();
                 type="number"
                 id="price"
                 name="price"
-                value={editedProduct.price}
+                placeholder={editedProduct.price}
+                
                 onChange={(e) => {
                   dispatch({
                     type: "update",
@@ -119,7 +103,7 @@ const navigate =useNavigate();
                 type="number"
                 id="quantity"
                 name="quantity"
-                value={editedProduct.quantity}
+                placeholder={editedProduct.quantity}
                 onChange={(e) => {
                   dispatch({
                     type: "update",
@@ -135,7 +119,7 @@ const navigate =useNavigate();
                 type="number"
                 id="offer_percentage"
                 name="offer_percentage"
-                value={editedProduct.offer_percentage}
+                placeholder={editedProduct.offer_percentage}
                 onChange={(e) => {
                   dispatch({
                     type: "update",
@@ -151,7 +135,7 @@ const navigate =useNavigate();
                 type="date"
                 id="offer_valid_date"
                 name="offer_valid_date"
-                value={editedProduct.offer_valid_date}
+                placeholder={editedProduct.offer_valid_date}
                 onChange={(e) => {
                   dispatch({
                     type: "update",

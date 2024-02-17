@@ -2,68 +2,52 @@ import { useEffect, useReducer, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
 export default function EditProfileCustomer() {
-  const [us, setUs] = useState();
-  const [user, setUser] = useState();
-  useEffect(() => {
-    const u = JSON.parse(localStorage.getItem("loggedUser"));
-    setUs(u);
-  }, []);
-  alert(us);
+  const us = useState(JSON.parse(localStorage.getItem("loggedUser")));
+  const user = useState(JSON.parse(localStorage.getItem("CustomerUser")));
+  // useEffect(() => {
+  //   const u = ;
+  //   setUs(u);
+  // }, []);
+  // alert(us);
 
-  useEffect(() => {
-    fetch("http://localhost:8080/getUserById?id=" + us.id)
-      .then((resp) => resp.json())
-      .then((data) => setUser(data));
-  }, [us]);
+  // useEffect(() => {
+  //   fetch("http://localhost:8080/getUserById?id=" + us.id)
+  //     .then((resp) => resp.json())
+  //     .then((data) => setUser(data));
+  // }, [us]);
 
   const initialState = {
-    uid: { value: user.id, hasError: false, error: "", touched: false },
+    uid: { value: user.id },
     fname: {
-      value: user.customer.first_name,
-      hasError: false,
-      error: "",
-      touched: false,
-    },
+      value: user.first_name},
     lname: {
-      value: user.customer.last_name,
-      hasError: false,
-      error: "",
-      touched: false,
-    },
+      value: user.last_name },
     email: {
-      value: user.customer.email,
-      hasError: true,
-      error: "",
-      touched: false,
-    },
+      value: user.email },
     cno: {
-      value: user.customer.contact_number,
-      hasError: true,
-      error: "",
-      touched: false,
+      value: user.contact_number
     },
-    uname: { value: user.username, hasError: true, error: "", touched: false },
-    pwd: { value: user.password, hasError: true, error: "", touched: false },
-    cpwd: { value: user.password, hasError: true, error: "", touched: false },
-    qid: {
-      value: user.question.id,
-      hasError: false,
-      error: "",
-      touched: false,
-    },
-    ans: { value: user.answer, hasError: false, error: "", touched: false },
-    isFormValid: false,
+    uname: { value: us.username},
+    pwd: { value: us.password},
+    cpwd: { value: us.password},
+    // qid: {
+    //   value: us.question.id,
+    //   hasError: false,
+    //   error: "",
+    //   touched: false,
+    // },
+    // ans: { value: user.answer, hasError: false, error: "", touched: false },
+    // isFormValid: false,
   };
 
   const reducer = (state, action) => {
     switch (action.type) {
       case "update":
-        const { name, value, hasError, error, touched, isFormValid } =
+        const { name, value} =
           action.data;
         return {
           ...state,
-          [name]: { value, hasError, error, touched },
-          isFormValid,
+          [name]: { value }
         };
 
       case "reset":
@@ -76,7 +60,7 @@ export default function EditProfileCustomer() {
   const [unames, setUname] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/getemails")
+    fetch("http://localhost:8080/getCustEmails")
       .then((resp) => resp.json())
       .then((data) => setEmail(data));
   }, []);
@@ -86,40 +70,41 @@ export default function EditProfileCustomer() {
       .then((resp) => resp.json())
       .then((data) => setUname(data));
   }, []);
+  const[error,setError]=useState("");
 
   const handleChange = (name, value) => {
     //a. call validation logic
-    const { hasError, error } = validateData(name, value);
+     error = validateData(name, value);
 
     //b. check form validity status
-    let isFormValid = true;
-    for (const key in info) {
-      // console.log(key+" : "+emp[key].hasError )
-      if (info[key].hasError === true) {
-        isFormValid = false;
-        break;
-      }
-    }
+    // let isFormValid = true;
+    // for (const key in info) {
+    //   // console.log(key+" : "+emp[key].hasError )
+    //   if (info[key].hasError === true) {
+    //     isFormValid = false;
+    //     break;
+    //   }
+    // }
 
     //c. call dispatch method
     dispatch({
       type: "update",
-      data: { name, value, hasError, error, touched: true, isFormValid },
+      data: { name, value},
     });
   };
 
   const validateData = (name, value) => {
-    let hasError = false;
+   
     let error = "";
     switch (name) {
       case "email":
-        if (value === user.customer.email) {
-          hasError = false;
+        if (value === user.email) {
+          
           error = "";
         } else {
           emails.forEach((element) => {
             if (element === value) {
-              hasError = true;
+             
               error = "email already used";
             }
           });
@@ -127,13 +112,13 @@ export default function EditProfileCustomer() {
         break;
 
       case "uname":
-        if (value === user.username) {
-          hasError = false;
+        if (value === us.username) {
+          
           error = "";
         } else {
           unames.forEach((element) => {
             if (element === value) {
-              hasError = true;
+             
               error = "username already used";
             }
           });
@@ -143,7 +128,7 @@ export default function EditProfileCustomer() {
         var exp1 =
           /(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!,@,#,$,%,^,&,*])[\w\W]{8,}/;
         if (!exp1.test(value)) {
-          hasError = true;
+         
           error =
             "password should contain atleast one Capital,small letter,special char,number";
         }
@@ -152,29 +137,29 @@ export default function EditProfileCustomer() {
       case "cno":
         var exp1 = /[\d]{10}/;
         if (!exp1.test(value)) {
-          hasError = true;
+         
           error = "invalid contact number";
         }
         break;
 
       case "cpwd":
         if (info.pwd != value) {
-          hasError = true;
+         
           error = "confirm password mismatched";
         }
         break;
       default:
     }
-    return { hasError, error };
+     return error;
   };
 
-  const [questions, setQuestion] = useState([]);
+  // const [questions, setQuestion] = useState([]);
 
-  useEffect(() => {
-    fetch("http://localhost:8080/getquestions")
-      .then((resp) => resp.json())
-      .then((data) => setQuestion(data));
-  }, []);
+  // useEffect(() => {
+  //   fetch("http://localhost:8080/getquestions")
+  //     .then((resp) => resp.json())
+  //     .then((data) => setQuestion(data));
+  // }, []);
 
   const [info, dispatch] = useReducer(reducer, initialState);
   const [msg, setMsg] = useState("");
@@ -199,7 +184,7 @@ export default function EditProfileCustomer() {
         if (Object.keys(obj).length === 0) {
           setMsg("Invalid username/password");
         } else {
-          navigate("/editsucces");
+          navigate("/customer");
         }
       });
   };
@@ -213,7 +198,7 @@ export default function EditProfileCustomer() {
             type="text"
             id="fname"
             name="fname"
-            value={info.fname.value}
+            placeholder={info.fname.value}
             onChange={(e) => {
               handleChange("fname", e.target.value);
             }}
@@ -329,7 +314,7 @@ export default function EditProfileCustomer() {
             {info.cpwd.error}
           </div>
         </div>
-        <div>
+        {/* <div>
           <label htmlFor="qid">Select Question for forget password</label>
           <select
             id="qid"
@@ -359,7 +344,7 @@ export default function EditProfileCustomer() {
               handleChange("ans", e.target.value);
             }}
           />
-        </div>
+        </div> */}
 
         <input
           type="submit"

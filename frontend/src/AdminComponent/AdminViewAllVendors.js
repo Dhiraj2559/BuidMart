@@ -51,8 +51,8 @@ export default function AdminViewAllVendors(){
                           <th>Shop Name</th>
                           <th>Registration No</th>
                          
-                          <th>Allow </th>
-                          <th>Block </th>
+                          <th>Approve </th>
+                          <th>Reject </th>
                           <th>View</th>
                           
                       </tr>
@@ -73,7 +73,7 @@ export default function AdminViewAllVendors(){
                                 <input className="btn btn-outline-primary"
                                     type="button"
                                     id={v.id}
-                                    value={"Allow"}
+                                    value={"Approve"}
                                     onClick={() => allowVender(v.user.id)}
                                 ></input>
                                 </td>
@@ -81,7 +81,7 @@ export default function AdminViewAllVendors(){
                                 <input className="btn btn-outline-danger"
                                     type="button"
                                     id={v.id}
-                                    value={"Block"}
+                                    value={"Reject"}
                                     onClick={() => blockVender(v.user.id)}
                                 ></input>
                                 </td>

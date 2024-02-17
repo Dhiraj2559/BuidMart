@@ -107,7 +107,7 @@ function VendorHome() {
   };
 
   const deleteProduct = (productId) => {
-    if (window.confirm("Are you sure to delete?")) {
+    alert(productId)
       fetch("http://localhost:8080/deleteVendorProduct?vpid=" + productId)
         .then((resp) => resp.json())
         .then((data) => {
@@ -119,7 +119,7 @@ function VendorHome() {
         .catch((error) => {
           console.error("Error deleting product:", error);
         });
-    }
+    
   };
 
   const addProduct = (e) => {
@@ -131,7 +131,6 @@ function VendorHome() {
 
     fetch("http://localhost:8080/addVendorProduct", reqOptions).then((resp) => {
       if (resp) {
-        alert("Product added successfully");
         reLoadProducts();
       } else alert("Failed to add product");
     });
@@ -145,29 +144,23 @@ function VendorHome() {
     else setflag(true);
   };
 
-  const editExistingProduct = (v) => {
-    // edit form for edit existinng product
-    // return <EditExistingProduct value={v}></EditExistingProduct>
-  };
-  const chooseCat = (e) => {
-    dispatch({
-      type: "update",
-      fid: "product_id",
-      value: e,
-    });
+ 
+  // const chooseCat = (e) => {
+  //   dispatch({
+  //     type: "update",
+  //     fid: "product_id",
+  //     value: e,
+  //   });
 
-    fetch("http://localhost:8080/getProductsByCid?cid=" + e)
-      .then((resp) => resp.json())
-      .then((data) => setproducts(data));
-  };
+  //   fetch("http://localhost:8080/getProductsByCid?cid=" + e)
+  //     .then((resp) => resp.json())
+  //     .then((data) => setproducts(data));
+  // };
 
   const editProductForm = (v) => {
-    // alert(v.id);
     console.log(v);
-    // console.log(v.id);
-    localStorage.setItem("v", v); // Convert to JSON string
-    // console.log("nav....");
-   alert(v)
+    localStorage.setItem("editingpr",JSON.stringify(v));
+  //  alert(v)
     navigate("/editproduct");
   };
   const [vendorOrderList,setvendorOrderList] = useState([{}])
@@ -250,7 +243,7 @@ function VendorHome() {
                       <a className="btn btn-outline-primary"
                         href="#"
                         onClick={() => {
-                          editProductForm(v.id);
+                          editProductForm(v);
                         }}
                       >
                         edit

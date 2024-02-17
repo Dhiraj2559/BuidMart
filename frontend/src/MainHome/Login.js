@@ -24,7 +24,6 @@ export default function Login() {
   const [info, dispatch] = useReducer(reducer, initialState);
   const reduxaction=useDispatch();
 
-  const [ms, setMs] = useState("");
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
 
@@ -51,31 +50,31 @@ export default function Login() {
           reduxaction(login())
           localStorage.setItem("loggedUser",JSON.stringify(obj));
           if (obj.role.id === 1) {
-            localStorage.setItem("CustomerUser",JSON.stringify(obj));
+            localStorage.setItem("CustomerUser",JSON.stringify(obj.customer));
             navigate("/customer");
-          } else if (obj.role.id === 3) {
-            localStorage.setItem("VendorUser",JSON.stringify(obj));
-            navigate("/vendor");
+          } else if (obj.role.id === 2) {
+            localStorage.setItem("CompanyUser",JSON.stringify(obj.company));
+            navigate("/company");
           } else if (obj.role.id === 4) {
-            localStorage.setItem("LabourUser",JSON.stringify(obj));
-            navigate("/serviceprovider");
+            localStorage.setItem("LabourUser",JSON.stringify(obj.labour));
+            navigate("/labour");
           }
           else if (obj.role.id === 5) {
             
             navigate("/admin");
           }
+          else if (obj.role.id === 3 && obj.vendor.valid===1) {
+            localStorage.setItem("VendorUser",JSON.stringify(obj.vendor));
+            navigate("/vendor");
+          } else setMsg("Your account is under observation...please try again after some time...");
         }
       })
-      .catch((error) => setMs("server error. Try again"));
+      .catch((error) => alert("server error. Try again"));
   };
-  return (
-
-        // <div className="container mt-5 login-form-container col-6" >
-
-<div className="body">
-    <div style={{ padding: '20px 50px', marginLeft:'320px', border: '1px solid ', borderRadius: '2px', height:'360px'}} >
-      <form>
-        <div className="credit text-center">
+  return (<div className="body">
+  <div style={{ padding: '20px 50px', marginLeft:'320px', border: '1px solid ', borderRadius: '2px', height:'360px'}} >
+    <form>
+        <div>
           <label htmlFor="username" className="form-label">Username :</label>
           <input
             type="text"
@@ -90,9 +89,9 @@ export default function Login() {
               });
             }}
           />
-          {/* <br /> */}
+          
         </div>
-        <div className="credit text-center">
+        <div>
           <label htmlFor="password" className="form-label">Password :</label>
           <input
             type="password"
@@ -107,27 +106,22 @@ export default function Login() {
               });
             }}
           />
-          <br />
+        
         </div>
-        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '3vh'}}>
+        <div >
         <button
-          className="btn btn-outline-primary fs-4"
-          // className="btn btn-link"
+          className="btn btn-outline-primary fs-4 "
           type="submit"
-          style={{width:200 } }
-          
+          style={{width:200}}
           onClick={(e) => checkLogin(e)}
         >
           Login
         </button>
         </div>
-       
-        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
         <span><a href="/forgotpassword" style={{width:200}} className="btn btn-outline-primary">forgot password</a></span>
-        </div>
+        
       </form>
-      <div>{msg}</div>
-      <div className="credit text-center text-danger"><b>{ms}</b></div>
+      <div className="text-danger">{msg}</div>
     </div>
     </div>
   );

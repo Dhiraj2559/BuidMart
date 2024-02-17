@@ -31,12 +31,6 @@ export default function CustomerHomepage() {
   const [msg, setMsg] = useState("");
   const [qty, setQty] = useState(0);
 
-  const [data, setData] = useState([]);
-  const [successMessage, setSuccessMessage] = useState("");
-  const [addedToCart, setAddedToCart] = useState({});
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const [productid, setProductid] = useState(1);
 
   const navigate = useNavigate();
 
@@ -56,30 +50,20 @@ export default function CustomerHomepage() {
       .then((data) => setProducts(data));
 
       setCatflag(true);
+
+     
   };
 
   const viewProduct = (v) => {
     // alert(productid);
-    fetch("http://localhost:8080/getVendorProductsCustomer?pid=" + v)
+    fetch("http://localhost:8080/getVendorProductsCustomer?pid=" + v.target.value)
       .then((resp) => resp.json())
       .then((data) => setVendorProducts(data));
 
       setPrdflag(true);
-    //   $(document).ready(() => {
-    //   $("#prd").hide("fast");
-    // });
+  
   };
-  // const addToCart = (product) => {
-  //   const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  //   cart.push(product);
-  //   localStorage.setItem("cart", JSON.stringify(cart));
 
-  //   setSuccessMessage("Item added to cart successfully!");
-  //   setAddedToCart((prevState) => ({
-  //     ...prevState,
-  //     [product.p_id]: true,
-  //   }));
-  // };
 
   const addToCart1 = (vpid, uid, qty) => {
     fetch(
@@ -153,118 +137,45 @@ export default function CustomerHomepage() {
 
       <div  id="operations">
       
-        {/* <div className="search-bar">
-          <input
-            type="text"
-            placeholder="Search by product name"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="search-input"
-          />
-        </div> */}
+     
         <h5 className="text-info text-center">Welcome <span >{user.customer.first_name} {user.customer.last_name}</span></h5>
-        {/* <select
-          name="ops"
-          onChange={(e) => {
-            navigate(e.target.value);
-          }}
-        >
-          <option>user operations</option>
-           <option value="/editProfile">Edit profile</option>
-          <option value="/viewProfile">View Profile</option>
-          <option value="/myOrders">My orders</option>
-          <option value="/logOut">Log out</option>
-        </select>
-         */}
+       
       </div>
       <div id="cart">
-        {/* <button
-          type="button"
-          className="btnn"
-          onClick={() => {
-            navigate("/viewCart");
-          }}
-        >
-          View Cart
-        </button> */}
+       
       </div>
       <nav className="navbar navbar-expand-sm navbar-light bg-light mb-3">
-        <div className="container-fluid">
+        <div className="container col-3">
           <ul className="navbar-nav">
             <li>
               <select name="categories" onChange={(e) => showProduct(e)}>
-                <option>select Catagories</option>
+                <option disabled selected>select Catagories</option>
                 {categories.map((v) => {
                   return <option value={v.id}>{v.name}</option>;
                  
                 })}
               </select>
             </li>
-            {/* {categories.map(v=>{return <li className="nav-item"><Link to={v.name} className="nav-link">{v.name}</Link></li>})} */}
           </ul>
         </div>
+         <div className="container col-3 "> 
+          
+              <select name="categories" onChange={(e) => viewProduct(e)} >
+                <option disabled selected>select Product</option>
+                {products.map((v) => {
+                  return <option value={v.id}>{v.productName}</option>;
+                 
+                })}
+              </select>
+        </div> 
         
       </nav>
-     {/* <div style={{display:catflag?"block":"none"}} className="table-responsive">
-        <table id="prd" className="table table-striped table-primary">
-          <thead className="thead-dark">
-            <tr>
-              <th>
-                {" "}
-                <h2>Product image</h2>
-              </th>
-              <th>
-                {" "}
-                <h2>Product name</h2>
-              </th>
-              <th>
-                {" "}
-                <h2>Description</h2>
-              </th>
-              <th>
-                {" "}
-                <h2>View</h2>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((v) => {
-              return (
-                <tr key={v.id}>
-                  <td>
-                    <img
-                      src={`data:image/png;base64,${v.picture}`}
-                      alt="Product"
-                      className="img-thumbnail"
-                      style={{ maxWidth: "300px", height: "300px" }}
-                    />
-                  </td>
-                  <td className="product-details">
-                    <h3>{v.productName}</h3>
-                  </td>
-                  <td className="product-details">
-                    <h3>{v.description}</h3>
-                  </td>
-                  <td>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setProductid(v.id);
-                        viewProduct(v.id);
-                      }}
-                      className="btn btn-outline-warning"
-                    >
-                      View Product
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-          </table>
-      </div>*/}
+
+       
+
+     
    <div  style={{display:prdflag?"block":"none"}}>
-      <table  className="table table-striped table-responsive table-success">
+      <table  className="table table-striped table-responsive table-info">
         <thead>
           <tr>
             <th>

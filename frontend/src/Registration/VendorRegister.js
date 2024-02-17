@@ -9,7 +9,7 @@ export default function VendorRegister() {
     email: { value: "", hasError: true, error: "", touched: false },
     cno: { value: "", hasError: true, error: "", touched: false },
     sname: { value: "", hasError: false, error: "", touched: false },
-    rno: { value: "", hasError: false, error: "", touched: false },
+    regno: { value: "", hasError: false, error: "", touched: false },
     uname: { value: "", hasError: true, error: "", touched: false },
     pwd: { value: "", hasError: true, error: "", touched: false },
     cpwd: { value: "", hasError: true, error: "", touched: false },
@@ -150,7 +150,7 @@ export default function VendorRegister() {
       email: info.email.value,
       cno: info.cno.value,
       sname: info.sname.value,
-      rno: info.rno.value,
+      regno: info.regno.value,
       uname: info.uname.value,
       pwd: info.pwd.value,
       qid: info.qid.value,
@@ -183,7 +183,10 @@ export default function VendorRegister() {
   };
 
   return (
-    <div className="container mt-5 login-form-container col-6" style={{ padding: '20px', border: '1px solid ', borderRadius: '10px' }}>
+    <div className="body">
+  <div style={{ padding: '20px 50px', marginLeft:'320px', border: '1px solid ', borderRadius: '2px', height:'1200px'}} >
+
+     {/* <div className="container mt-5 login-form-container col-6" style={{ padding: '20px', border: '1px solid ', borderRadius: '10px' }}> */}
       <div className="credit text-center">
      <h2 color='Blue'><b>VENDOR REGISTRATION FORM</b></h2>
       <form>
@@ -205,20 +208,20 @@ export default function VendorRegister() {
           <label htmlFor="vname">Enter Registration Number</label>
           <input
             type="text"
-            id="rno"
-            name="rno"
-            value={info.rno.value}
+            id="regno"
+            name="regno"
+            value={info.regno.value}
             onChange={(e) => {
-              handleChange("rno", e.target.value);
+              handleChange("regno", e.target.value);
             }}
           />
         </div>
 
 
-        <div>
-          <label htmlFor="email">Enter Email id</label><br/>
+        <div  >
+          <label htmlFor="email" className="col-md-12">Enter Email id</label><br/>
           <input
-            type="email"
+            type="text"
             id="email"
             name="email"
             value={info.email.value}
@@ -369,6 +372,7 @@ export default function VendorRegister() {
       </form>
       <div>{msg}</div>
       </div>
+    </div>
     </div>
   );
 }
