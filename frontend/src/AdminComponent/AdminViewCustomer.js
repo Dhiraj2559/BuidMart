@@ -14,7 +14,7 @@ export default function AdminViewVendor(){
         .then(data=>setCustomer(data))
     },[])
     return(
-        <div className="container mt-5 login-form-container col-10">
+        <div className="fs-4">
             <h1>Vendor Details</h1>
             <div>
                 <table className="table table-bordered table-responsive table-striped">
@@ -46,7 +46,8 @@ export default function AdminViewVendor(){
                    </tbody>
                     
                 </table>
-                <button type="button" onClick={()=>{navigate("/admin")}}>Back to homepage</button>
+                <button type="button" onClick={()=>{navigate("/v_customers")}}>Back</button>
+                <button type="button" onClick={()=>{navigate("/admin")}}>Home</button>
             </div>
         </div>
     )

@@ -1,11 +1,12 @@
 import "./script.js";
-
+import "./App.css";
 import "./style.css";
+
 
 import img from "./images/buildmart.jpg";
 import Home from "./MainHome/Home.js";
 
-import { Route, Routes } from "react-router";
+import {Route, Routes } from "react-router";
 import { Link } from "react-router-dom";
 
 // Importing ForntAwsome for icon and symbols
@@ -118,6 +119,7 @@ function App() {
         </div>
       </header>
       <body>
+      
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/home" element={<Home />}></Route>
@@ -134,30 +136,37 @@ function App() {
           <Route path="/editproduct" element={<EditProduct />}>
             {" "}
           </Route>
-          <Route path="/myOrders" element={<MyOreders />}></Route>
+          {/* <Route path="/myOrders" element={<MyOreders />}></Route> */}
           <Route path="/logout" element={<Logout />}></Route>
           {/* <Route path="/check" element={<VendorHome/>}></Route> */}
           <Route path="/vendor" element={<VendorHome />}></Route>
-          <Route path="/admin" element={<AdminHome />}></Route>
+         
           <Route path="/ordersuccess" element={<OrderSuccess />}></Route>
           <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
 
+          <Route path="/admin" element={<AdminHome />}>
 
-          <Route path="/v_categories" element={<AdminViewCategories />}></Route>
-          <Route path="/add_category" element={<AdminAddCategory />}></Route>
-          <Route path="/add_product" element={<AdminAddProduct />}></Route>
-          <Route path="/v_vendors" element={<AdminViewAllVendors />}></Route>
-          <Route path="/v_customers" element={<AdminViewAllCustomers />}></Route>
-          <Route path="/viewCustomer/:id/" element={<AdminViewCustomer />}></Route>
-          <Route path="/categoryaddsuccess" element={<AddCategorySuccess />}></Route>
-          <Route path="/viewVendor/:id/" element={<AdminViewVendor />}></Route>
-          <Route path="/addnewcategory" element={<AdminAddCategory />}></Route>
+                <Route path="v_categories" element={<AdminViewCategories />}/>
+                <Route path="/admin/add_category" element={<AdminAddCategory />} />
+                <Route path="add_product" element={<AdminAddProduct />}/>
+                <Route path="v_vendors" element={<AdminViewAllVendors />}/>
+                <Route path="v_customers" element={<AdminViewAllCustomers />}/>
+                <Route path="viewCustomer/:id/" element={<AdminViewCustomer />}/>
+                <Route path="categoryaddsuccess" element={<AddCategorySuccess />}/>
+                <Route path="viewVendor/:id/" element={<AdminViewVendor />}/>
+                <Route path="addnewcategory" element={<AdminAddCategory />}/>
+
+          </Route>
+         
 
 
-          <Route path="/vieworderitems" element={<VendorOrderItems />}></Route>
+          <Route path="/vieworderitems" element={<VendorOrderItems />}>
+
+          </Route>
           <Route path="/emps" element={<OrderHistory />}></Route>
 
         </Routes>
+       
       </body>
       <footer>
        

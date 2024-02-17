@@ -27,48 +27,20 @@ export default function ViewProfileCustomer() {
         } else if (obj.role.id === 3) {
           setRole("Vendor");
         } else if (obj.role.id === 4) {
-          setRole("Labour");
+          setRole("sp");
         }
       });
   }, []);
 
-  //   useEffect(() => {
-  //     fetch("http://localhost:8080/getUserById?id=" + user1.id)
-  //       .then((resp) => resp.json())
-  //       .then((obj) => {
-  //         setUser(obj);
-  //         if (user.role.id == 1) {
-  //           setRole("Customer");
-  //           //fetch("http://localhost:8080/getCustomerByUid"+user.id)
-  //           //.then(resp=>resp.json())
-  //           //.then(data=>setRuser(data))
-  //           //ruser=user.customer;
-  //         } else if (user.role.id == 2) {
-  //           setRole("Company");
-  //           //fetch("http://localhost:8080/getCompanyByUid"+user.id)
-  //           //.then(resp=>resp.json())
-  //           //.then(data=>setRuser(data))
-  //           //ruser=user.company;
-  //         } else if (user.role.id == 3) {
-  //           setRole("Vendor");
-  //           //fetch("http://localhost:8080/getVendorByUid"+user.id)
-  //           //.then(resp=>resp.json())
-  //           //.then(data=>setRuser(data))
-  //           // ruser=user.vendor;
-  //         } else if (user.role.id == 4) {
-  //           setRole("Labour");
-  //           //fetch("http://localhost:8080/getLabourByUid"+user.id)
-  //           //.then(resp=>resp.json())
-  //           //.then(data=>setRuser(data))
-  //           //ruser=user.labour;
-  //         }
-  //       });
-  //   }, []);
+
 
   return (
-    <div className="fs-4" style={{ display: role === "Customer" ? "block" : "none" }}>
-      <div>
-        <table className="table table-striped table-bordered table-info">
+    <div className="login-form-container" 
+    style={{ display: role === "Customer" ? "block" : "none" }}
+    >
+      <div className="credit text-center col-6">
+        <br/>
+        <table className="table table-striped table-bordered table-info ">
           <thead>
             <tr>
               <th>First name</th>

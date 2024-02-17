@@ -169,7 +169,10 @@ export default function CustomerRegister() {
   return (
     <section className="h-100 h-custom">
 
-    <div className="container mt-5 login-form-container col-8 " style={{ backgroundColor: 'lightblue', padding: '20px', border: '1px solid ', borderRadius: '10px' }}>
+<div className="body">
+  <div style={{ padding: '20px 50px', marginLeft:'320px', border: '1px solid ', borderRadius: '2px', height:'1200px'}} >
+
+    {/* <div className="container mt-5 login-form-container col-8 " style={{ padding: '20px', border: '1px solid ', borderRadius: '10px' }}> */}
      <div className="credit text-center">
      <h2 color='Blue'><b>USER REGISTRATION FORM</b></h2>
      
@@ -352,6 +355,7 @@ export default function CustomerRegister() {
       <div>{msg}</div>
     </div>
     </div>
+  </div>
     </section>
   );
 }
