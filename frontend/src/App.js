@@ -1,5 +1,5 @@
 import "./script.js";
-
+import "./App.css";
 import "./style.css";
 
 import img from "./images/buildmart.jpg";

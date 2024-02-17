@@ -86,7 +86,7 @@ export default function AdminViewAllVendors(){
                                 ></input>
                                 </td>
                                 <td>
-                                    <button type="button" onClick={()=>{navigate(`/viewVendor/${v.user.id}`)}}>View details</button>
+                                    <button type="button" onClick={()=>{navigate(`/viewVendor/${v.user.id}3`)}}>View details</button>
                                 </td>
                             </tr>)
                           })}  

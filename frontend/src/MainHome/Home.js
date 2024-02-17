@@ -20,8 +20,8 @@ export default function Home() {
   return (
     <div  className="credit text-center">
     
-          <h1>Welcome to Buidlmart</h1>
-        <img  src={img} style={{width:"500px", height:"300px"  }} alt="pic"/>
+          <h1>Welcome to Buidlmart</h1> 
+         <img  src={img} style={{width:"500px", height:"300px"  }} alt="pic"/>
 
         <div className="swiper-button-next"></div>
         <div className="swiper-button-prev"></div>

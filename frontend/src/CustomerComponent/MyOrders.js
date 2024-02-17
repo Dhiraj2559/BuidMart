@@ -18,7 +18,7 @@ export default function MyOreders(){
         console.log(JSON.stringify(orderitems))
     };
     return(
-        <div className="fs-4">
+        <div className="container mt-5 login-form-container col-10">
             <h1 className="display-1 text-info">Your orders details </h1>
             <table className="table table-bordered table-stripped table-responsive table-warning">
                 <thead>

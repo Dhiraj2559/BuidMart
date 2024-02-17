@@ -153,6 +153,7 @@ export default function ViewCart() {
   }
 
   return (
+    <div className="container mt-5 login-form-container col-10">
     <div className="container table-responsive-smtable-responsive-sm fs-4">
       <div id="prds">
         <table className="table table-hover content table-info table-striped">
@@ -321,6 +322,7 @@ export default function ViewCart() {
       {/* <Routes>
         <Route path="ordersuccess" element={<OrderSuccess />} />
       </Routes> */}
+    </div>
     </div>
   );
 }

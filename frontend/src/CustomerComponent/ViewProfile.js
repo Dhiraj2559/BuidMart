@@ -66,7 +66,7 @@ export default function ViewProfileCustomer() {
   //   }, []);
 
   return (
-    <div className="fs-4" style={{ display: role === "Customer" ? "block" : "none" }}>
+    <div className="container mt-5 login-form-container col-10" style={{ display: role === "Customer" ? "block" : "none" }}>
       <div>
         <table className="table table-striped table-bordered table-info">
           <thead>

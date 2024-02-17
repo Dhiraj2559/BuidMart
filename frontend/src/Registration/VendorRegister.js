@@ -183,7 +183,7 @@ export default function VendorRegister() {
   };
 
   return (
-    <div className="container mt-5 login-form-container col-6" style={{ backgroundColor: 'lightblue', padding: '20px', border: '1px solid ', borderRadius: '10px' }}>
+    <div className="container mt-5 login-form-container col-6" style={{ padding: '20px', border: '1px solid ', borderRadius: '10px' }}>
       <div className="credit text-center">
      <h2 color='Blue'><b>VENDOR REGISTRATION FORM</b></h2>
       <form>

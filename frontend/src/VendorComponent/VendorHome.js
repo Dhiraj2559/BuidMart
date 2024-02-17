@@ -219,7 +219,8 @@ function VendorHome() {
       </header>
 
       <body>
-        <div className="container-fluid table-responsive-smtable-responsive-sm fs-4 ">
+      {/* className="container mt-5 login-form-container col-10" */}
+        <div className="container-fluid table-responsive-smtable-responsive-sm col-10">
           <table className="table table-striped table-hover ">
             <thead className="table-dark">
               <tr>
