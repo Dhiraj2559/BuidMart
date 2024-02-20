@@ -62,10 +62,19 @@ export default function ViewProfileCustomer() {
           className="btn btn-outline-primary"
           type="button"
           onClick={(e) => {
-            navigate("/editprofilecust");
+            navigate("/customer/editprofilecust");
           }}
         >
           edit profile
+        </button>
+        <button
+          className="btn btn-outline-primary"
+          type="button"
+          onClick={(e) => {
+            navigate("/customer");
+          }}
+        >
+          Back
         </button>
       </div>
 

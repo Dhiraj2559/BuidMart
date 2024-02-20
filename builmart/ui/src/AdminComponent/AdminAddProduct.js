@@ -24,6 +24,8 @@ export default function AdminAddProduct(){
   const navigate= useNavigate();
   const[info,dispatch]=useReducer(reducer,initialState);
   const [categories, setCategories] = useState([]);
+  const [msg,setMsg]=useState("");
+  const [msg1,setMsg1]=useState("");
 
   useEffect(() => {
     fetch("http://localhost:8080/getCategories")
@@ -33,7 +35,11 @@ export default function AdminAddProduct(){
 
 
   const addProduct=()=>{
-       
+       if(info.productName!==""&&
+       info.description!==""&&
+       info.catid!=="")
+     { 
+      
       const reqOptions={
         method : "POST",
         headers : {'content-type':'application/json'},
@@ -44,7 +50,8 @@ export default function AdminAddProduct(){
       .then(resp=>{
         if(resp.ok)
         {
-            navigate("/categoryaddsuccess");
+          setMsg("Product Added Successful");
+          setMsg1("");
         }
         else
              throw new Error("Server error");
@@ -52,16 +59,20 @@ export default function AdminAddProduct(){
         )
         .catch((error)=>{
             alert("updation failed");
-        })
+       })
+      
+    }
+    else
+    setMsg1("Name , description & Catagory can not be null");
   }
     return(
         <div className="container mt-5 login-form-container col-6 credit text-center" style={{ backgroundColor: 'lightblue', padding: '20px', border: '1px solid ', borderRadius: '10px' }}>
             <h1>Products details form</h1>
             <form>
                 <label htmlFor="productName">Enter Product Name</label>
-                <input type="text" id="productName" name=" productName" value={info.productName} onChange={(e)=>{dispatch({type:'update', fld:'productName', value:e.target.value})}} />
+                <input type="text" id="productName" name=" productName"  value={info.productName} onChange={(e)=>{dispatch({type:'update', fld:'productName', value:e.target.value})}} required />
                 <label htmlFor="description">Enter description</label>
-                <input type="text" id="description" name="description" value={info.description} onChange={(e)=>{dispatch({type:'update', fld:'description', value:e.target.value})}} />
+                <input type="text" id="description" name="description"  value={info.description} onChange={(e)=>{dispatch({type:'update', fld:'description', value:e.target.value})}} required/>
                 <label htmlFor="stockQuantity">Enter stockQuantity</label>
                 <input type="number" id="stockQuantity" name="stockQuantity" value={info.stockQuantity} onChange={(e)=>{dispatch({type:'update', fld:'stockQuantity', value:e.target.value})}} />
               {/*  <label htmlFor="cid">Enter cid</label>
@@ -71,8 +82,8 @@ export default function AdminAddProduct(){
               <label htmlFor="catid" className="form-label">
                 Select Category
               </label>
-               <select id="catid" name="catid" onChange={(e) => {dispatch({type:'update', fld:'catid', value:e.target.value})}}>
-                <option>select Catagories</option>
+               <select id="catid" name="catid"  onChange={(e) => {dispatch({type:'update', fld:'catid', value:e.target.value})}}>
+                <option required >select Catagories</option>
                 {categories.map((v) => {
                   return <option value={v.id}>{v.name}</option>;
                  
@@ -86,6 +97,8 @@ export default function AdminAddProduct(){
                 <div>
                 <button className="btn btn-outline-primary fs-4 " style={{width:200}} type="button" onClick={()=>{navigate("/admin")}} >Back</button></div>
             </form>
+            <div className="text-success">{msg}</div>
+            <div className="text-warning">{msg1}</div>
         </div>
     )
 }

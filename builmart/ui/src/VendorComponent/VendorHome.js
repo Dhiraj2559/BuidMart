@@ -190,14 +190,14 @@ function VendorHome() {
             </Link>
           </li>
           <li className="nav-link">
-            <Link to="/emps" className="nav-link">
+            <Link to="emps" className="nav-link">
               Order History
             </Link>
           </li>
         
         
           <li className="nav-item">
-            <Link to="/viewProfile" className="nav-link">
+            <Link to="viewProfile" className="nav-link">
               <div className="icon-container">
                 <FontAwesomeIcon icon={faUser} />
               </div>
@@ -209,6 +209,7 @@ function VendorHome() {
             </Link>
           </li>
         </ul>
+        <Outlet/>
       </header>
 
       <body>

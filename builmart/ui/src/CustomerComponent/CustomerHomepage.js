@@ -105,7 +105,7 @@ export default function CustomerHomepage() {
           </li>
           
           <li className="nav-link">
-            <Link to="/myOrders" className="nav-link">
+            <Link to="myOrders" className="nav-link">
               Order History
             </Link>
           </li>
@@ -114,14 +114,14 @@ export default function CustomerHomepage() {
         
           
           <li className="nav-item">
-            <Link to="/viewCart" className="nav-link">
+            <Link to="viewCart" className="nav-link">
               <div className="icon-container">
                 <FontAwesomeIcon icon={faShoppingCart} />
               </div>
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/viewProfile" className="nav-link">
+            <Link to="viewProfile" className="nav-link">
               <div className="icon-container">
                 <FontAwesomeIcon icon={faUser} />
               </div>
@@ -133,6 +133,7 @@ export default function CustomerHomepage() {
             </Link>
           </li>
         </ul>
+        <Outlet/>
       </header>
 
       <div  id="operations">

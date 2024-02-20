@@ -1,15 +1,15 @@
 import { faAlignCenter } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react"
-import { json } from "react-router-dom";
+import { Navigate, json, useNavigate } from "react-router-dom";
 
 export default function OrderHistory()
 {
     const [vendor,setVendor] = useState((JSON.parse(localStorage.getItem("VendorUser"))))
     const [vendorOrderList,setvendorOrderList] = useState([])
     const[flag,setFlag]=useState(false);
+    const navigate=useNavigate();
  
-    const showAllOrder=()=>{
-    alert("hi")
+    useEffect(()=>{
       
       fetch("http://localhost:8080/getVendorOrderItems?vid="+vendor.id)
       .then((resp) => resp.json())
@@ -17,7 +17,17 @@ export default function OrderHistory()
       // alert(vendor.id);
       // alert(JSON.stringify(vendorOrderList));
       setFlag(true);
-  };
+    },[])
+    
+  //   const showAllOrder=()=>{
+      
+  //     fetch("http://localhost:8080/getVendorOrderItems?vid="+vendor.id)
+  //     .then((resp) => resp.json())
+  //     .then((data) => setvendorOrderList(data));
+  //     // alert(vendor.id);
+  //     // alert(JSON.stringify(vendorOrderList));
+  //     setFlag(true);
+  // };
 
     return (
         <div>
@@ -57,7 +67,7 @@ export default function OrderHistory()
           </tbody>
         </table>
       </div>
-      <button style={{position:faAlignCenter}} type="button" className="btn btn-outline-primary" onClick={showAllOrder}>View orders</button>  
+      <button style={{position:faAlignCenter}} type="button" className="btn btn-outline-primary" onClick={()=>{navigate("/vendor")}}>Back</button>  
   </div>
     
     )

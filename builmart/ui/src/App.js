@@ -69,6 +69,7 @@ import {useNavigate } from "react-router-dom";
 import OrderHistory from "./VendorComponent/OrderHistory.js";
 import SpRegister from "./Registration/SpRegister.js";
 import AdminAddProduct from "./AdminComponent/AdminAddProduct.js";
+import UpdateCustomer from "./CustomerComponent/edit.js";
 
 library.add(faStar);
 
@@ -129,22 +130,32 @@ function App() {
           {/* <Route path="/companyregister" element={<CompanyRegister />}></Route> */}
           <Route path="/vendorregister" element={<VendorRegister />}></Route>
           <Route path="/spregister" element={<SpRegister />}></Route>
-          <Route path="/customer" element={<CustomerHomepage />}></Route>
-          <Route path="/editprofilecust" element={<EditProfileCustomer />} />
-          <Route path="/viewProfile" element={<ViewProfile />} />
-          <Route path="/viewCart" element={<ViewCart />} />
+          
+         
           <Route path="/feedback" element={<Mailer />} />
           <Route path="/editproduct" element={<EditProduct />}>
             {" "}
           </Route>
-          <Route path="/myOrders" element={<MyOreders />}></Route>
+         
           <Route path="/logout" element={<Logout />}></Route>
           <Route path="/check" element={<VendorHome/>}></Route>
-          <Route path="/vendor" element={<VendorHome />}></Route>
+       
          
           <Route path="/ordersuccess" element={<OrderSuccess />}></Route>
           <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
 
+          <Route path="/customer" element={<CustomerHomepage />}>
+               <Route path="myOrders" element={<MyOreders />}></Route>
+              <Route path="editprofilecust" element={<UpdateCustomer />} />
+              <Route path="viewProfile" element={<ViewProfile />} />
+              <Route path="viewCart" element={<ViewCart />} />
+                
+          </Route>
+
+          <Route path="/vendor" element={<VendorHome />}>
+                <Route path="vieworderitems" element={<VendorOrderItems />}/>
+                <Route path="emps" element={<OrderHistory />}/>
+          </Route>
           <Route path="admin" element={<AdminHome />}>
 
                 <Route path="v_categories" element={<AdminViewCategories />}/>
@@ -160,11 +171,6 @@ function App() {
           </Route>
          
 
-
-          <Route path="/vieworderitems" element={<VendorOrderItems />}>
-
-          </Route>
-          <Route path="/emps" element={<OrderHistory />}></Route>
 
         </Routes>
        

@@ -33,7 +33,7 @@ export default function AdminViewCategories(){
                         }) }
                    </tbody>
                </table>
-               <button type="button" className="btn btn-outline-primary" onClick={()=>{navigate("/addnewcategory")}}>Add new Category</button>
+               <button type="button" className="btn btn-outline-primary" onClick={()=>{navigate("/admin/addnewcategory")}}>Add new Category</button>
                <button type="button" className="btn btn-outline-primary" onClick={()=>{navigate("/admin")}}>Back to homepage</button>
           </div>
     )

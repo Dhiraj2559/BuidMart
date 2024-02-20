@@ -50,7 +50,7 @@ export default function AdminViewAllVendors(){
                           <th>User id</th>
                           <th>Shop Name</th>
                           <th>Registration No</th>
-                         
+                         <th>Active Status</th>
                           <th>Approve </th>
                           <th>Reject </th>
                           <th>View</th>
@@ -69,6 +69,14 @@ export default function AdminViewAllVendors(){
                                 <td>
                                     {v.reg_no}
                                 </td>
+                                <td>
+                                      {v.valid === 1 ? (
+                                        <h3 className="text-primary">Valid</h3>
+                                      ) : (
+                                        <h3 className="text-danger">Not Valid</h3>
+                                      )}
+                               </td>
+
                                 <td>
                                 <input className="btn btn-outline-primary"
                                     type="button"

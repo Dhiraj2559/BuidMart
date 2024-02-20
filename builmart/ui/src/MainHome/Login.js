@@ -57,7 +57,7 @@ export default function Login() {
             navigate("/company");
           } else if (obj.role.id === 4) {
             localStorage.setItem("LabourUser",JSON.stringify(obj.labour));
-            navigate("/labour");
+            navigate("/sp");
           }
           else if (obj.role.id === 5) {
             
