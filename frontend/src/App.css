@@ -37,7 +37,19 @@
 .App-link {
   color: #040404;
 }
-
+.body{
+  background-image: url("./images/LoginBG.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.5);          
+}
+.carousel-container {
+  margin-left: 40px;
+  margin-right: 40px;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
