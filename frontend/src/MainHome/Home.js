@@ -24,13 +24,11 @@ library.add(faStar);
 
 export default function Home() {
   return (
-<<<<<<< Updated upstream
     <div  className="credit text-center">
     
-          <h1>Welcome to Buidlmart</h1> 
+          {/* <h1>Welcome to Buidlmart</h1> 
          <img  src={img} style={{width:"500px", height:"300px"  }} alt="pic"/>
-=======
-    <div className="credit text-center">
+    <div className="credit text-center"> */}
 
       <h1 style={{ fontSize: '3rem', color: 'orange', marginBottom: '20px' }}>BuildMart</h1>
 
@@ -93,7 +91,7 @@ export default function Home() {
 
       </div>
 
-      <div className="container">
+      {/* <div className="container">
 
 
         <div style={{ marginBottom: "25px" }}>
@@ -124,12 +122,44 @@ export default function Home() {
 
 
 
-      </div>
+      </div> */}
+       <div className="container">
 
 
->>>>>>> Stashed changes
+<div>
+  <p style={{ fontSize: "35px", marginBottom:"30px" }}> <span style={{ color: "red" }}>HOW YOU GET </span>ADVANTAGES?</p>
+</div>
+
+<div style={{ display: "flex", justifyContent: "space-between" }}>
+  <div style={{ width: "200px", padding: "20px", border: "1px solid #ccc", borderRadius: "7px", marginLeft:"200px", backgroundColor:"#FDDDB8"}}>
+    <h4>Get Right Products</h4>
+    <div>
+      <p style={{ fontWeight: "400" }}>Choose the right product or services through well-organized catalogs.</p>
+    </div>
+  </div>
+  <div  style={{ width: "200px", padding: "20px", border: "1px solid #ccc", borderRadius: "7px" ,backgroundColor:"#FDF5AD" }}>
+    <h4>Get Right Quality</h4>
+    <div>
+      <p style={{ fontWeight: "400" }}>Quality assured from third party test certificates as well as from us.</p>
+    </div>
+  </div>
+  <div style={{ width: "200px", padding: "20px", border: "1px solid #ccc", borderRadius: "7px", marginRight:"200px", backgroundColor:"#FDDDB8"}}>
+    <h4>Get Right Price</h4>
+    <div>
+      <p style={{ fontWeight: "400" }}>Finalize your Quotation, choose pricing according to various brands.</p>
+    </div>
+  </div>
+
+</div>
+
+
+
+</div>
+
+
 
 
     </div>
+    
   );
 }

@@ -71,12 +71,10 @@ export default function Login() {
       })
       .catch((error) => alert("server error. Try again"));
   };
-<<<<<<< Updated upstream
-  return (<div className="body">
-  <div style={{ padding: '20px 50px', marginLeft:'320px', border: '1px solid ', borderRadius: '2px', height:'360px'}} >
-    <form>
-        <div>
-=======
+  // return (<div className="body">
+  // <div style={{ padding: '20px 50px', marginLeft:'320px', border: '1px solid ', borderRadius: '2px', height:'360px'}} >
+  //   <form>
+  //       <div>
   return (
     <div className="body">
     <div style={{ padding: '20px 50px', marginTop:"140px", marginLeft:'300px', border: '1px solid ', borderRadius: '8px', height:'360px', backgroundColor:"white"}} >
@@ -84,7 +82,6 @@ export default function Login() {
      {/* <div className="container mt-5 login-form-container col-6" style={{ backgroundColor: 'lightblue', padding: '20px', border: '1px solid ', borderRadius: '10px' }}> */}
       <form>
         <div className="credit text-center">
->>>>>>> Stashed changes
           <label htmlFor="username" className="form-label">Username :</label>
           <input
             type="text"
@@ -134,6 +131,6 @@ export default function Login() {
       <div className="text-danger">{msg}</div>
     </div>
     </div>
-    </div>
+  
   );
 }
