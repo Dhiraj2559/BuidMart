@@ -17,7 +17,7 @@ namespace BuildMart.Controllers
             this.categoryDAL = categoryDAL;
         }
        */
-        [HttpGet]
+        [HttpGet("categories")]
         public List<Category> GetAllCategories()
         {
             List<Category> categories = new List<Category>();
@@ -27,6 +27,20 @@ namespace BuildMart.Controllers
             }
             return categories;
         }
+
+        [HttpGet("customers")]
+        public List<IndividualCustomer> GetIndividualCustomers()
+        {
+            List<IndividualCustomer> customers = new List<IndividualCustomer>();
+            using(var db=new newbuildContext())
+            {
+                customers=db.IndividualCustomers.ToList();
+            }
+            return customers;
+        }
+            
+
+
        
 
 
