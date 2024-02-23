@@ -57,7 +57,7 @@ export default function Login() {
             navigate("/company");
           } else if (obj.role.id === 4) {
             localStorage.setItem("LabourUser",JSON.stringify(obj.labour));
-            navigate("/labour");
+            navigate("/sp");
           }
           else if (obj.role.id === 5) {
             
@@ -71,6 +71,7 @@ export default function Login() {
       })
       .catch((error) => alert("server error. Try again"));
   };
+<<<<<<< Updated upstream
   // return (<div className="body">
   // <div style={{ padding: '20px 50px', marginLeft:'320px', border: '1px solid ', borderRadius: '2px', height:'360px'}} >
   //   <form>
@@ -83,6 +84,12 @@ export default function Login() {
      {/* <div className="container mt-5 login-form-container col-6" style={{ backgroundColor: 'lightblue', padding: '20px', border: '1px solid ', borderRadius: '10px' }}> */}
       <form>
         <div className="credit text-center">
+=======
+  return (<div className="body">
+  <div style={{ padding: '20px 50px', marginLeft:'320px', border: '1px solid ', borderRadius: '2px', height:'360px'}} >
+    <form>
+        <div>
+>>>>>>> Stashed changes
           <label htmlFor="username" className="form-label">Username :</label>
           <input
             type="text"
@@ -132,7 +139,10 @@ export default function Login() {
       <div className="text-danger">{msg}</div>
     </div>
     </div>
+<<<<<<< Updated upstream
   
    
+=======
+>>>>>>> Stashed changes
   );
 }

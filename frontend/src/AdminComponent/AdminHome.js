@@ -43,14 +43,18 @@ export default function AdminHome() {
                     </div>
 
                 </nav>
+<<<<<<< Updated upstream
                 <Outlet></Outlet>
+=======
+                <Outlet/>
+>>>>>>> Stashed changes
               
             </div>
 
             <div className=' credit text-center'>
                 <br/>
-            <h1>Welcome to Buidlmart</h1>
-        <img  src={img} style={{width:"500px", height:"300px"  }} alt="pic"/>
+            {/* <h1>Welcome to Buidlmart</h1>
+        <img  src={img} style={{width:"500px", height:"300px"  }} alt="pic"/> */}
 
             </div>
         </div>

@@ -7,19 +7,18 @@ export default function MyOreders(){
     const navigate=useNavigate();
     var uid=(JSON.parse(localStorage.getItem("loggedUser"))).id;
    
-    
-    const[orderitems,setOrderItems]=useState([]);
-    const showOrder=()=>{
-    
-        console.log(uid);
+    useEffect(()=>{
         fetch("http://localhost:8080/getOrderItemByUid?uid="+uid)
         .then(resp=>resp.json())
         .then(data=>{setOrderItems(data);console.log(JSON.stringify(orderitems))})
         console.log(JSON.stringify(orderitems))
-    };
+    },[])
+    
+    const[orderitems,setOrderItems]=useState([]);
+    
     return(
-        <div className="container mt-5 login-form-container col-10">
-            <h1 className="display-1 text-info">Your orders details </h1>
+        <div className="container credit text-center mt-5 login-form-container col-9">
+            <h1 className="display-1 text-info"><b>Your Orders Details </b></h1>
             <table className="table table-bordered table-stripped table-responsive table-warning">
                 <thead>
                     <tr>
@@ -36,7 +35,7 @@ export default function MyOreders(){
                 <tbody>
                     {orderitems.map((v)=>{return(
                         <tr>
-                               <td>{v.vendorProduct.product.productName}</td>  
+                               <td><p>{v.vendorProduct.product.productName}</p></td>  
                            <td>{v.quantity}</td>
                            <td>{v.order.initialPaymentAmount}</td>
                           <td>{v.order.address.area.city.city_name}</td> 
@@ -48,8 +47,8 @@ export default function MyOreders(){
                     })} 
                 </tbody>
             </table>
-            <button style={{position:faAlignCenter}} type="button" className="btn btn-outline-primary" onClick={showOrder}>View orders</button>
-            <button style={{position:faAlignCenter}} type="button" className="btn btn-outline-primary" onClick={()=>{navigate("/customer")}}>Back to home</button>
+            {/* <button style={{position:faAlignCenter}} type="button" className="btn btn-outline-primary" onClick={showOrder}>View orders</button> */}
+            <button style={{position:faAlignCenter}} type="button" className="btn btn-outline-primary" onClick={()=>{navigate("/cust")}}>Back to home</button>
         </div>
     )
 }

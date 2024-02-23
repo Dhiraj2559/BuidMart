@@ -163,13 +163,13 @@ const submitData1 = () => {
 
 
   return (
-    <div className="fs-4">
+    <div className="container credit text-center mt-5 login-form-container col-4">
         <div style={{display : quediv?  "none":"block"}} >
           <h2>Forgot Password</h2>
           <form>
             <label htmlFor="username" >Enter User Name</label>
             <input type="text" id="username"  name="username" value={username} onChange={(e)=>setUsername(e.target.value)}></input>
-            <input type="button" className="btnn" value="Submit" 
+            <input type="button" className="btn btn-outline-primary fs-4" value="Submit" 
             onClick={()=>checkUserName()}
             
             ></input>
@@ -183,7 +183,7 @@ const submitData1 = () => {
 
           <label htmlFor="username" >Enter Your Answer</label>
             <input type="text" id="answer"  name="answer" value={userAnswer} onChange={(e)=>setUserAnswer(e.target.value)}></input>
-            <input type="button" className="btnn" value="Submit" 
+            <input type="button" className="btn btn-outline-primary fs-4" value="Submit" 
             onClick={()=>checkAnswer()}
             
             ></input>
@@ -231,7 +231,7 @@ const submitData1 = () => {
                 </div>
                 <button
                 type="button"
-                className="btnn "
+                className="btn btn-outline-primary fs-4"
                  disabled={!info.isFormValid}
                 onClick={() => {
                    submitData1();

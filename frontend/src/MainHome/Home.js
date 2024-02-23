@@ -1,9 +1,9 @@
 import "../script.js";
 
 import "../style.css";
-import img from "../images/logo.webp"
-import img1 from "../images/bg2.webp"
-import img2 from "../images/bg3.jpg"
+// import img from "../images/logo.webp"
+// import img1 from "../images/bg2.webp"
+import img2 from "../images/"
 import img3 from "../images/bg.jpg"
 import img4mumbai from "../images/bg4 mumbai.jpg"
 import cateImg from "../images/Img Cate new.jpg"
@@ -59,13 +59,13 @@ export default function Home() {
             <Button variant="primary" className="carousel-btn">Next</Button> */}
             </Carousel.Caption>
           </Carousel.Item>
-          <Carousel.Item>
+          {/* <Carousel.Item>
             <img className="d-block w-100" src={img2} alt="Fourth slide" />
             <Carousel.Caption>
               {/* <Button variant="primary" className="carousel-btn">Previous</Button>
-            <Button variant="primary" className="carousel-btn">Next</Button> */}
+            <Button variant="primary" className="carousel-btn">Next</Button> 
             </Carousel.Caption>
-          </Carousel.Item>
+          </Carousel.Item> */}
           {/* <Carousel.Item>
           <img className="d-block w-100" src={img5} alt="Fifth slide" />
           <Carousel.Caption>

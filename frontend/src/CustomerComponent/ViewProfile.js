@@ -38,7 +38,7 @@ export default function ViewProfileCustomer() {
     <div className="login-form-container" 
     style={{ display: role === "Customer" ? "block" : "none" }}
     >
-      <div className="credit text-center col-6">
+      <div className="container credit text-center mt-5 login-form-container col-8" >
         <br/>
         <table className="table table-striped table-bordered table-info ">
           <thead>
@@ -62,108 +62,22 @@ export default function ViewProfileCustomer() {
           className="btn btn-outline-primary"
           type="button"
           onClick={(e) => {
-            navigate("/editprofilecust");
+            navigate("/cust/editprofilecust");
           }}
         >
           edit profile
+        </button>
+        <button
+          className="btn btn-outline-primary"
+          type="button"
+          onClick={(e) => {
+            navigate("/cust");
+          }}
+        >
+          Back
         </button>
       </div>
 
-      {/* <div style={{ display: role === "Vendor" ? "block" : "none" }}>
-        <table>
-          <thead>
-            <tr>
-              <th>Vendor name</th>
-
-              <th>Email</th>
-              <th>Contact number</th>
-              <th>Membership expiry date</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{user && user.vendor.shopName}</td>
-              <td>{user && user.vendor.email}</td>
-              <td>{user && user.vendor.contactNumber}</td>
-              <td>{user && user.vendor.membership_payment.expiry_date}</td>
-            </tr>
-          </tbody>
-        </table>
-        <button
-          type="button"
-          onClick={(e) => {
-            navigate("/editprofilevendor");
-          }}
-        >
-          edit profile
-        </button>
-      </div>
-
-      <div style={{ display: role === "Company" ? "block" : "none" }}>
-        <table>
-          <thead>
-            <tr>
-              <th>Company name</th>
-              <th>Email</th>
-              <th>Contact number</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{user && user.customer.company_name}</td>
-              <td>{user && user.customer.email}</td>
-              <td>{user && user.customer.contact_number}</td>
-            </tr>
-          </tbody>
-        </table>
-        <button
-          type="button"
-          onClick={(e) => {
-            navigate("/editprofilecompany");
-          }}
-        >
-          edit profile
-        </button>
-      </div>
-
-      <div style={{ display: role === "Labour" ? "block" : "none" }}>
-        <table>
-          <thead>
-            <tr>
-              <th>First name</th>
-              <th>Last name</th>
-              <th>Email</th>
-              <th>Contact number</th>
-              <th>Experience</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{user && user.labour.first_name}</td>
-              <td>{user && user.labour.last_name}</td>
-              <td>{user && user.labour.email}</td>
-              <td>{user && user.labour.contact_number}</td>
-              <td>{user && user.labour.experience}</td>
-              <td>{user && user.labour.status}</td>
-            </tr>
-          </tbody>
-        </table>
-        <button
-          type="button"
-          onClick={(e) => {
-            navigate("/editprofilelabour");
-          }}
-        >
-          edit profile
-        </button>
-      </div> */}
-
-     
-        
-        {/* <Route path="/editprofilecompany" element={<EditProfileCompany user={ps.user} />} />
-                 <Route path="/editprofilevendor" element={<EditProfileVendor user={ps.user} />} />
-                 <Route path="/editprofilelabour" element={<EditProfileLabour user={ps.user} />} /> */}
       
     </div>
   );

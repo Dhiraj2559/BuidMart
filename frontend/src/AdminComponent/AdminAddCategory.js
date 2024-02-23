@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function AdminAddCategory(){
@@ -20,10 +20,13 @@ export default function AdminAddCategory(){
 
   const navigate= useNavigate();
   const[info,dispatch]=useReducer(reducer,initialState);
+  const [msg,setMsg]=useState("");
+  const [msg1,setMsg1]=useState("");
 
   const addCategory=()=>{
-       
-      const reqOptions={
+    if(info.name!=="" && info.description!=="")
+    {
+         const reqOptions={
         method : "POST",
         headers : {'content-type':'application/json'},
         body : JSON.stringify(info)
@@ -33,7 +36,8 @@ export default function AdminAddCategory(){
       .then(resp=>{
         if(resp.ok)
         {
-            navigate("/categoryaddsuccess");
+           setMsg("Category Added SuccessFully");
+           setMsg1("");
         }
         else
              throw new Error("Server error");
@@ -42,6 +46,8 @@ export default function AdminAddCategory(){
         .catch((error)=>{
             alert("updation failed");
         })
+    }
+    else setMsg1("Form is Not Filled Completely")
   }
     return(
         
@@ -50,9 +56,9 @@ export default function AdminAddCategory(){
             <h1>Category details form</h1>
             <form>
                 <label htmlFor="name">Enter category name</label>
-                <input type="text" id="name" name="name" value={info.name} onChange={(e)=>{dispatch({type:'update', fld:'name', value:e.target.value})}} />
+                <input type="text" id="name" name="name" value={info.name} required onChange={(e)=>{dispatch({type:'update', fld:'name', value:e.target.value})}} />
                 <label htmlFor="description">Enter description</label>
-                <input type="text" id="description" name="description" value={info.description} onChange={(e)=>{dispatch({type:'update', fld:'description', value:e.target.value})}} />
+                <input type="text" id="description" name="description" value={info.description} required onChange={(e)=>{dispatch({type:'update', fld:'description', value:e.target.value})}} />
                 <div>
                 <button className="btn btn-outline-primary fs-4 " style={{width:200}} type="button" onClick={()=>{addCategory()}} >Add category</button>
                 </div>
@@ -60,6 +66,8 @@ export default function AdminAddCategory(){
                 <button className="btn btn-outline-primary fs-4 " style={{width:200}} type="button" onClick={()=>{navigate("/admin")}} >Back</button>
                 </div>
             </form>
+            <div className="text-success">{msg}</div>
+            <div className="text-warning">{msg1}</div>
         </div>
     )
 }

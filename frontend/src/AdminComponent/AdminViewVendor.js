@@ -40,7 +40,7 @@ export default function AdminViewVendor(){
                    </tbody>
                     
                 </table>
-                <button type="button" onClick={()=>{navigate("/v_vendors")}}>Back</button>
+                <button type="button" onClick={()=>{navigate("/admin/v_vendors")}}>Back</button>
                 <button type="button" onClick={()=>{navigate("/admin")}}>Home</button>
             </div>
         </div>

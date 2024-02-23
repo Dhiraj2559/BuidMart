@@ -1,5 +1,6 @@
 import { useEffect, useReducer, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
+import { faAlignCenter } from "@fortawesome/free-solid-svg-icons";
 
 import "../style.css";
 import "../Registration/shubham.css";
@@ -14,7 +15,7 @@ export default function ViewCart() {
   const sum= (e)=>{
     total+=e;
   }
-
+  const[pay,setPay]=useState(null);
   const initialState = {
     //vproducts:  cart ,
     user_id: 0,
@@ -23,7 +24,7 @@ export default function ViewCart() {
     area: 0,
     addline: "",
     initial_Payment_Amount: 0,
-    initial_Payment_Mode: "",
+    initial_Payment_Mode: pay,
     initial_Payment_Transid: "",
     active_status:1
   
@@ -98,6 +99,44 @@ export default function ViewCart() {
   const [cities, setCity] = useState([]);
   const [areas, setArea] = useState([]);
 
+  const deleteProduct = (productId) => {
+    alert(productId)
+      fetch("http://localhost:8080/deleteitem?vpid=" + productId)
+        .then((resp) => resp.json())
+        .then((data) => {
+          if (data > 0) {
+            alert("Product Deleted");
+             reLoadProducts();
+          } else alert("Failed to Delete Product");
+        })
+        .catch((error) => {
+          console.error("Error deleting product:", error);
+        });
+    
+  };
+  const reLoadProducts = () => {
+    const us = (JSON.parse(localStorage.getItem("loggedUser"))).id;
+    setUser(us);
+    fetch("http://localhost:8080/getCart?userid=" + us)
+      .then((resp) => resp.json())
+      .then((data) => {
+        setCart(data);
+        dispatch({type:'update',fld:'user_id', value:us});
+
+        console.log(cart);
+        let tprice = 0;
+
+        // data.forEach((element) => {
+        //   if (element.vendorproduct && element.vendorproduct.price) {
+        //     tprice += element.vendorproduct.price;
+        //   }
+        //   setTot(tprice);
+
+        // });
+        // this.state.initialState.initialPayment=100;
+      });
+  };
+
   useEffect(() => {
     fetch("http://localhost:8080/getcities")
       .then((resp) => resp.json())
@@ -114,8 +153,15 @@ export default function ViewCart() {
       console.log(areas);
   };
 
+  const handlepayChange=(event)=>{
+    console.log(event.target.value);
+    setPay(event.target.value);
+  };
+  
   const placeOrder = (e) => {
+
     e.preventDefault();
+    info.initial_Payment_Mode=pay;
     dispatch({
       type: "update",
       fld: "total_price",
@@ -125,21 +171,36 @@ export default function ViewCart() {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(info),
+      
     };
   
     // alert(JSON.stringify(info));
-    fetch("http://localhost:8080/placeOrder", reqOptions)
+    if(info.city!= 0 &&
+      info.area!= 0 &&
+      info.addline!= "" &&
+      info.initial_Payment_Amount!= 0 &&
+      info.initial_Payment_Mode!= "" &&
+      info.initial_Payment_Transid!= ""
+    )
+    {
+      console.log(pay);
+      console.log(info.initial_Payment_Mode);
+      fetch("http://localhost:8080/placeOrder", reqOptions)
       .then((resp) => {
         if (resp.ok) {
           localStorage.setItem("orderid", JSON.stringify(resp));
-          navigate("/ordersuccess");
+          navigate("/cust/myOrders");
         } else throw new Error("Server error");
       })
       .catch((error) => {
         alert("server error. Try again");
-      });
+      });}
+      else
+      setMsg("Cannot place order... Kindly fill complete information")
+
   };
 
+  const [msg,setMsg]=useState("");
   const setTrans=(e)=>{
     
        dispatch({type:'update',fld:'initial_Payment_Amount', value:(total*0.1)});
@@ -152,9 +213,9 @@ export default function ViewCart() {
 
   }
 
+ 
   return (
-    <div className="container mt-5 login-form-container col-10">
-    <div className="container table-responsive-smtable-responsive-sm fs-4">
+    <div className="container credit text-center mt-5 login-form-container col-9">
       <div id="prds">
         <table className="table table-hover content table-info table-striped">
           <thead className="thead-dark content ">
@@ -163,6 +224,7 @@ export default function ViewCart() {
               <th scope="col">Product name</th>
               <th scope="col">Price</th>
               <th scope="col">Quantity</th>
+              <th scope="col">Remove</th>
             </tr>
           </thead>
           <tbody>
@@ -174,6 +236,14 @@ export default function ViewCart() {
                   <td className="table-info">{v.vendorProduct.product.productName}</td>
                   <td className="table-info" onChange={sum(v.vendorProduct.price*v.quantity)} >{v.vendorProduct.price}</td>
                   <td className="table-info" >{v.quantity}</td>
+                  <td className="table-info" >
+                  <input className="btn btn-outline-primary"
+                        type="button"
+                        id={v.id}
+                        value={"Delete"}
+                        onClick={() => deleteProduct(v.id)}
+                      ></input>
+                  </td>
                 </tr>
               );
             }
@@ -219,7 +289,7 @@ export default function ViewCart() {
         <div >
           <div>
             <label htmlFor="city">Select City</label>
-            <select id="city" name="city" onChange={(e) => editCity(e)}>
+            <select id="city" name="city" onChange={(e) => editCity(e)} required>
               <option>Select City</option>
               {cities.map((v) => {
                 return (
@@ -243,6 +313,7 @@ export default function ViewCart() {
                   value: e.target.value,
                 });
               }}
+              required
             >
                   <option>Select Area</option>
               {areas.map((v) => {
@@ -262,6 +333,7 @@ export default function ViewCart() {
               id="addline"
               name="addline"
               value={info.addline}
+              required
               onChange={(e) => {
                 dispatch({
                   type: "update",
@@ -284,12 +356,21 @@ export default function ViewCart() {
           />
         </div>
         <div>
-          <label htmlFor="ipmode">Enter Payment mode</label>
+          <label htmlFor="pay">Enter Payment mode</label>
+          <select id="pay"
+            name="pay" value={pay} onChange={handlepayChange}>
+              <option  value="G-Pay">Google Pay</option>
+              <option value="Phone-Pay">Phone Pay</option>
+              <option value="PayYm">PayTm</option>
+
+            </select>
+{/*          
           <input
             type="text"
             id="ipmode"
             name="ipmode"
             value={info.ipmode}
+            required
             onChange={(e) => {
               dispatch({
                 type: "update",
@@ -297,7 +378,9 @@ export default function ViewCart() {
                 value: e.target.value,
               });
             }}
-          />
+          /> */}
+
+          
         </div>
         <div>
           <label htmlFor="iptransid">Enter Transaction id</label>
@@ -306,23 +389,25 @@ export default function ViewCart() {
             id="iptransid"
             name="iptransid"
             value={info.initial_Payment_Transid}
+            required
             onChange={(e) => {
               setTrans(e)
             }}
           />
         </div>
+        </form>
         <button
           type="button"
           className="btn btn-outline-primary"
           
           onClick={(e) => placeOrder(e)}
         >Place Order</button>
-      </form>
-
+        <button style={{position:faAlignCenter}} type="button" className="btn btn-outline-primary" onClick={()=>{navigate("/cust")}}>Back to home</button>
+      
       {/* <Routes>
         <Route path="ordersuccess" element={<OrderSuccess />} />
       </Routes> */}
-    </div>
+      <div className="text-danger">{msg}</div>
     </div>
   );
 }

@@ -59,7 +59,7 @@ const navigate =useNavigate();
       .then((resp) => {
         if (resp.ok) {
           // alert("Product Edited");
-          navigate('/vendor');
+          navigate('/vendornav');
         } else alert("Failed to Edit Product");
         
       });
@@ -147,12 +147,23 @@ const navigate =useNavigate();
             </div>
             <button
               type="button"
-              className="btn btn-primary"
+              className="btn btn-primary container"
+              style={{width:"100px"}}
               onClick={() => addProduct()}
             >
               Submit
             </button>
+            
+            
           </form>
+          <br></br>
+          <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => navigate("/vendornav")}
+            >
+              back
+            </button>
         </div>
       </div>
     </div>

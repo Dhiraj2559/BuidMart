@@ -74,10 +74,16 @@ export default function CustomerRegister() {
     let error = "";
     switch (name) {
       case "email":
+        const emailRegex = /^[\w._#-]{4,20}@[\w]{5,15}\.[a-z]{3}$/;
         emails.forEach((element) => {
           if (element === value) {
             hasError = true;
             error = "email already used";
+          }
+          if(!emailRegex.test(value))
+          {
+            hasError = true;
+            error = "Insert Valid Email Address";
           }
         });
         break;
@@ -114,6 +120,30 @@ export default function CustomerRegister() {
           error = "confirm password mismatched";
         }
         break;
+
+      case "fname":
+        if(info.fname.value==="")
+        {
+          hasError = true;
+          error = "First name cannot be empty";
+        }
+        break;
+
+        case "lname":
+          if(info.lname.value==="")
+          {
+            hasError = true;
+            error = "Last name cannot be empty";
+          } 
+          break;
+
+          case "ans":
+          if(info.ans.value==="")
+          {
+            hasError = true;
+            error = "Ans cannot be empty";
+          } 
+          break;
       default:
     }
     return { hasError, error };
@@ -169,7 +199,10 @@ export default function CustomerRegister() {
   return (
     <section className="h-100 h-custom">
 
-    <div className="container mt-5 login-form-container col-8 " style={{ padding: '20px', border: '1px solid ', borderRadius: '10px' }}>
+<div >
+  <div style={{ padding: '20px 50px', marginLeft:'200px',marginTop:'20px',marginRight:'200px', border: '1px solid ', borderRadius: '2px', height:'1130px'}} >
+
+    {/* <div className="container mt-5 login-form-container col-8 " style={{ padding: '20px', border: '1px solid ', borderRadius: '10px' }}> */}
      <div className="credit text-center">
      <h2 color='Blue'><b>USER REGISTRATION FORM</b></h2>
      
@@ -184,7 +217,17 @@ export default function CustomerRegister() {
             onChange={(e) => {
               handleChange("fname", e.target.value);
             }}
+            required
           />
+          <div
+            style={{
+              display:
+                info.fname.touched && info.fname.hasError ? "block" : "none",
+            }}
+            className="text-danger"
+          >
+            {info.fname.error}
+          </div>
         </div>
         <div>
           <label htmlFor="lname">Enter Last name</label>
@@ -196,7 +239,17 @@ export default function CustomerRegister() {
             onChange={(e) => {
               handleChange("lname", e.target.value);
             }}
+            required
           />
+          <div
+            style={{
+              display:
+                info.lname.touched && info.lname.hasError ? "block" : "none",
+            }}
+            className="text-danger"
+          >
+            {info.lname.error}
+          </div>
         </div>
         <div>
           <label htmlFor="email">Enter Email id</label>
@@ -214,6 +267,7 @@ export default function CustomerRegister() {
               display:
                 info.email.touched && info.email.hasError ? "block" : "none",
             }}
+            className="text-danger"
           >
             {info.email.error}
           </div>
@@ -224,6 +278,7 @@ export default function CustomerRegister() {
             type="text"
             id="cno"
             name="cno"
+            maxLength={10}
             value={info.cno.value}
             onChange={(e) => {
               handleChange("cno", e.target.value);
@@ -232,7 +287,8 @@ export default function CustomerRegister() {
           <div
             style={{
               display: info.cno.touched && info.cno.hasError ? "block" : "none",
-            }}
+             }}
+            className="text-danger"
           >
             {info.cno.error}
           </div>
@@ -253,6 +309,7 @@ export default function CustomerRegister() {
               display:
                 info.uname.touched && info.uname.hasError ? "block" : "none",
             }}
+            className="text-danger"
           >
             {info.uname.error}
           </div>
@@ -272,6 +329,7 @@ export default function CustomerRegister() {
             style={{
               display: info.pwd.touched && info.pwd.hasError ? "block" : "none",
             }}
+            className="text-danger"
           >
             {info.pwd.error}
           </div>
@@ -292,6 +350,7 @@ export default function CustomerRegister() {
               display:
                 info.cpwd.touched && info.cpwd.hasError ? "block" : "none",
             }}
+            className="text-danger"
           >
             {info.cpwd.error}
           </div>
@@ -328,7 +387,17 @@ export default function CustomerRegister() {
             onChange={(e) => {
               handleChange("ans", e.target.value);
             }}
+            required
           />
+          <div
+            style={{
+              display:
+                info.ans.touched && info.ans.hasError ? "block" : "none",
+            }}
+            className="text-danger"
+          >
+            {info.ans.error}
+          </div>
         </div>
 
         <input
@@ -352,6 +421,7 @@ export default function CustomerRegister() {
       <div>{msg}</div>
     </div>
     </div>
+  </div>
     </section>
   );
 }

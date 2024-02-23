@@ -50,9 +50,7 @@ export default function AdminViewAllVendors(){
                           <th>User id</th>
                           <th>Shop Name</th>
                           <th>Registration No</th>
-                         
-                          <th>Approve </th>
-                          <th>Reject </th>
+                         <th>Authorise Vender</th>
                           <th>View</th>
                           
                       </tr>
@@ -70,23 +68,25 @@ export default function AdminViewAllVendors(){
                                     {v.reg_no}
                                 </td>
                                 <td>
-                                <input className="btn btn-outline-primary"
-                                    type="button"
-                                    id={v.id}
-                                    value={"Approve"}
-                                    onClick={() => allowVender(v.user.id)}
-                                ></input>
-                                </td>
+                                      {v.valid === 1 ? (
+                                         <input className="btn btn-outline-danger"
+                                         type="button"
+                                         id={v.id}
+                                         value={"Reject"}
+                                         onClick={() => blockVender(v.user.id)}
+                                     ></input>
+                                      ) : (
+                                    <input className="btn btn-outline-primary"
+                                         type="button"
+                                         id={v.id}
+                                         value={"Approve"}
+                                         onClick={() => allowVender(v.user.id)}
+                                     ></input>
+                                      )}
+                                      </td>
+                               
                                 <td>
-                                <input className="btn btn-outline-danger"
-                                    type="button"
-                                    id={v.id}
-                                    value={"Reject"}
-                                    onClick={() => blockVender(v.user.id)}
-                                ></input>
-                                </td>
-                                <td>
-                                    <button type="button" onClick={()=>{navigate(`/viewVendor/${v.user.id}3`)}}>View details</button>
+                                    <button type="button" onClick={()=>{navigate(`/admin/viewVendor/${v.user.id}`)}}>View details</button>
                                 </td>
                             </tr>)
                           })}  

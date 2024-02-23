@@ -3,27 +3,7 @@ import React, { useReducer, useState, useEffect } from "react";
 import { Outlet, Route, Routes, useNavigate } from "react-router";
 
 import "../style.css";
-import { Link } from "react-router-dom";
-import img1 from "../images/buildmart.jpg"
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faStar,
-  faBars,
-  faInfoCircle,
-  faSearch,
-  faUser,
-  faShoppingCart,
-  faTimes,
-  faPhone,
-  faEnvelope,
-  faMapMarkerAlt,
-  faFacebookF,
-  faTwitter,
-  faInstagram,
-  faLinkedin,
-  faPlus,
-} from "@fortawesome/free-solid-svg-icons";
 
 function VendorHome() {
   const initialState = {
@@ -83,6 +63,7 @@ function VendorHome() {
   };
 
   const [newproduct, dispatch] = useReducer(reducer, initialState);
+  const [msg,setMsg]=useState("");
 
   const navigate = useNavigate();
 
@@ -129,11 +110,19 @@ function VendorHome() {
       body: JSON.stringify(newproduct),
     };
 
-    fetch("http://localhost:8080/addVendorProduct", reqOptions).then((resp) => {
+    if(newproduct.category_id!= 0 &&
+      newproduct.product_id!= 0 &&
+      newproduct.quantity!= 0 &&
+      newproduct.price!= 0 &&
+      newproduct.offer_percentage!= 0 &&
+      newproduct.offer_valid_date!= "")
+    {fetch("http://localhost:8080/addVendorProduct", reqOptions).then((resp) => {
       if (resp) {
         reLoadProducts();
       } else alert("Failed to add product");
-    });
+    });}
+    else
+    setMsg("Fill complete Information");
 
     if (flag === true) setflag(false);
     else setflag(true);
@@ -177,43 +166,10 @@ function VendorHome() {
   }
   return (
     <div className="home">
-      <header className="header container-fluid">
-        <ul className="nav navbar">
-          <li className="navbar-brand">
-            <Link to="/vendor" className="nav-link" style={{ fontSize: 40 }}>
-            <img  src={img1} style={{width:"250px", height:"50px"  }} alt="pic"/>
-            </Link>
-          </li>
-          <li className="nav-link">
-            <Link to="/vendor" className="nav-link">
-              HOME
-            </Link>
-          </li>
-          <li className="nav-link">
-            <Link to="/emps" className="nav-link">
-              Order History
-            </Link>
-          </li>
-        
-        
-          <li className="nav-item">
-            <Link to="/viewProfile" className="nav-link">
-              <div className="icon-container">
-                <FontAwesomeIcon icon={faUser} />
-              </div>
-            </Link>
-          </li>
-          <li className="nav-link">
-            <Link to="/logout" className="nav-link">
-              Logout
-            </Link>
-          </li>
-        </ul>
-      </header>
-
+      
       <body>
-      {/* className="container mt-5 login-form-container col-10" */}
-        <div className="container-fluid table-responsive-smtable-responsive-sm col-10">
+        <br/>
+        <div className="container credit text-center mt-5 login-form-container col-9">
           <table className="table table-striped table-hover ">
             <thead className="table-dark">
               <tr>
@@ -267,12 +223,13 @@ function VendorHome() {
           </table>
         </div>
         <div
-          className="container mt-5  formfild"
+        className="container credit text-center mt-5 login-form-container col-9"
+          // className="container mt-5  formfild"
           style={{ display: flag ? "none" : "block" }}
         >
           <h1>Add Product</h1>
           <form>
-            <div>
+            <div >
               <label htmlFor="category_id" className="form-label">
                 Select Category
               </label>
@@ -406,17 +363,13 @@ function VendorHome() {
             </button>
           </form>
         </div>
-        {/* <button type="button" onClick={viewOrders}>View pending orders</button> */}
+        <div className="text-danger">
+          {msg}
+        </div>
       </body>
-      {/* <Routes>
-        {productList.map((v) => {
-          return (
-            <Route path={v.id} element={<EditExistingProduct vpid={v.id} />} />
-          );
-        })}
-      </Routes> */}
+      
 
-      <Outlet />
+     
     </div>
   );
     }

@@ -6,7 +6,7 @@ export default function OrderSuccess(ps){
         <div className="fs-4">
             <h2 className="text-success">Order placed Successfully!!!</h2>
             
-            <a href="/customer" className="btn btn-outline-primary">back to home page</a>
+            <a href="/cust" className="btn btn-outline-primary">back to home page</a>
         </div>
     )
 }

@@ -24,11 +24,14 @@
   color: rgb(0, 0, 0);
 }
 
+<<<<<<< Updated upstream
 
 
 .App-link {
   color: #040404;
 }
+=======
+>>>>>>> Stashed changes
 .body{
   background-image: url("./images/LoginBG.jpg");
   background-size: cover;
@@ -38,10 +41,24 @@
   display: flex;
   background-color: rgba(255, 255, 255, 0.5);          
 }
+.body1{
+  background-image: url("./images/LoginBG.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 170vh;
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.5);          
+}
+.App-link {
+  color: #040404;
+}
+
 .carousel-container {
   margin-left: 40px;
   margin-right: 40px;
 }
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

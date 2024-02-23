@@ -3,8 +3,12 @@ import "./App.css";
 import "./style.css";
 
 
+<<<<<<< Updated upstream
 import "./App.css";
 import img from "./images/buildmart.jpg";
+=======
+import img from "./images/BML.png";
+>>>>>>> Stashed changes
 import Home from "./MainHome/Home.js";
 
 import {Route, Routes } from "react-router";
@@ -41,7 +45,7 @@ import { useState } from "react";
 import CustomerRegister from "./Registration/CustomerRegister.js";
 import VendorRegister from "./Registration/VendorRegister.js";
 // import LabourRegister from "./Registration/SpRegister.js";
-import Login from "./MainHome/Login.js";
+import Login from "./MainHome/Login (2).js";
 // import LoginSuccess from "./MainHome/LoginSuccess.js";
 import { useSelector } from "react-redux";
 import CustomerHomepage from "./CustomerComponent/CustomerHomepage.js";
@@ -50,7 +54,7 @@ import EditProfileCustomer from "./CustomerComponent/EditProfileCustomer.js";
 import ViewCart from "./CustomerComponent/ViewCart.js";
 import Logout from "./MainHome/Logout.js";
 import ViewProfile from "./CustomerComponent/ViewProfile.js";
-import Mailer from "./MainHome/Mailer.js";
+// import Mailer from "./MainHome/Mailer.js";
 import EditProduct from "./VendorComponent/EditProduct.js";
 import MyOreders from "./CustomerComponent/MyOrders.js";
 import OrderSuccess from "./CustomerComponent/OrderSuccess.js";
@@ -70,6 +74,13 @@ import {useNavigate } from "react-router-dom";
 import OrderHistory from "./VendorComponent/OrderHistory.js";
 import SpRegister from "./Registration/SpRegister.js";
 import AdminAddProduct from "./AdminComponent/AdminAddProduct.js";
+import UpdateCustomer from "./CustomerComponent/edit.js";
+import ViewProfileVendor from "./VendorComponent/ViewProfile.js";
+import Updatevendor from "./VendorComponent/edit.js";
+import VendorNav from "./VendorComponent/vendorNavbar.js";
+import cust from "./CustomerComponent/Customernavbar.js";
+import Cust from "./CustomerComponent/Customernavbar.js";
+
 library.add(faStar);
 
 function App() {
@@ -82,10 +93,10 @@ function App() {
     <div className="App">
       <header style={{backgroundColor:"InfoBackground"}} className="header container-fluid">
         <div style={{ display: mystate.loggedIn ? "none" : "block" }}>
-          <ul className="nav navbar">
+          <ul className="nav navbar bg-dark">
          <li className="nav-link logo">
               <Link to="/home" className="nav-link" style={{ fontSize: 40 }}>
-              <img  src={img} style={{width:"300px", height:"100px"  }} alt="pic"/>
+              <img  src={img} style={{width:"300px", height:"80px"  }} alt="pic"/>
               </Link>
             </li>
             <li className="nav-link">
@@ -129,26 +140,42 @@ function App() {
           {/* <Route path="/companyregister" element={<CompanyRegister />}></Route> */}
           <Route path="/vendorregister" element={<VendorRegister />}></Route>
           <Route path="/spregister" element={<SpRegister />}></Route>
-          <Route path="/customer" element={<CustomerHomepage />}></Route>
-          <Route path="/editprofilecust" element={<EditProfileCustomer />} />
-          <Route path="/viewProfile" element={<ViewProfile />} />
-          <Route path="/viewCart" element={<ViewCart />} />
-          <Route path="/feedback" element={<Mailer />} />
+          
+         
+          {/* <Route path="/feedback" element={<Mailer />} /> */}
           <Route path="/editproduct" element={<EditProduct />}>
             {" "}
           </Route>
-          {/* <Route path="/myOrders" element={<MyOreders />}></Route> */}
+         
           <Route path="/logout" element={<Logout />}></Route>
-          {/* <Route path="/check" element={<VendorHome/>}></Route> */}
-          <Route path="/vendor" element={<VendorHome />}></Route>
+          <Route path="/check" element={<VendorHome/>}></Route>
+       
          
           <Route path="/ordersuccess" element={<OrderSuccess />}></Route>
           <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
 
-          <Route path="/admin" element={<AdminHome />}>
+          <Route path="/cust" element={<Cust/>}>
+          <Route path="customer" element={<CustomerHomepage />}/>
+               <Route path="myOrders" element={<MyOreders />}></Route>
+              <Route path="editprofilecust" element={<UpdateCustomer />} />
+              <Route path="viewProfile" element={<ViewProfile />} />
+              <Route path="viewCart" element={<ViewCart />} />
+                
+          </Route>
+
+          <Route path="/vendornav" element={<VendorNav/>}>
+                  <Route path="vendor" element={<VendorHome />}/>
+                <Route path="vieworderitems" element={<VendorOrderItems />}/>
+                <Route path="emps" element={<OrderHistory />}/>
+                <Route path="viewProfileVendor" element={<ViewProfileVendor />}/>
+                <Route path="editprofilevendor" element={<Updatevendor />}/>
+                
+                
+          </Route>
+          <Route path="admin" element={<AdminHome />}>
 
                 <Route path="v_categories" element={<AdminViewCategories />}/>
-                <Route path="/admin/add_category" element={<AdminAddCategory />} />
+                <Route path="add_category" element={<AdminAddCategory />} />
                 <Route path="add_product" element={<AdminAddProduct />}/>
                 <Route path="v_vendors" element={<AdminViewAllVendors />}/>
                 <Route path="v_customers" element={<AdminViewAllCustomers />}/>
@@ -160,11 +187,6 @@ function App() {
           </Route>
          
 
-
-          <Route path="/vieworderitems" element={<VendorOrderItems />}>
-
-          </Route>
-          <Route path="/emps" element={<OrderHistory />}></Route>
 
         </Routes>
        

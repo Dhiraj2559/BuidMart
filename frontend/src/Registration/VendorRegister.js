@@ -80,10 +80,16 @@ export default function VendorRegister() {
     let error = "";
     switch (name) {
       case "email":
+        const emailRegex = /^[\w._#-]{4,20}@[\w]{5,15}\.[a-z]{3}$/;
         emails.forEach((element) => {
           if (element === value) {
             hasError = true;
             error = "email already used";
+          }
+          if(!emailRegex.test(value))
+          {
+            hasError = true;
+            error = "Insert Valid Email Address";
           }
         });
         break;
@@ -107,7 +113,7 @@ export default function VendorRegister() {
         break;
 
       case "cno":
-        var exp1 = /[\d]{10}$/;
+        var exp1 = /^[\d]{10}$/;
         if (!exp1.test(value)) {
           hasError = true;
           error = "invalid contact number";
@@ -120,6 +126,31 @@ export default function VendorRegister() {
           error = "confirm password mismatched";
         }
         break;
+
+      case "sname":
+        if(info.sname.value ==="")
+        {
+          hasError=true;
+          error="Shop name cannot be null";
+        }
+        break;
+
+      case "regno":
+        if(info.regno.value ==="")
+        {
+          hasError=true;
+          error="Registration number cannot be null";
+        }
+        break;
+
+        case "ans":
+          if(info.ans.value ==="")
+        {
+          hasError=true;
+          error="Answer cannot be null";
+        }
+        break;
+
       default:
     }
     return { hasError, error };
@@ -183,8 +214,8 @@ export default function VendorRegister() {
   };
 
   return (
-    <div className="body">
-  <div style={{ padding: '20px 50px', marginLeft:'320px', border: '1px solid ', borderRadius: '2px', height:'1200px'}} >
+    <div className="App" >
+  <div style={{ padding: '20px 50px', marginLeft:'200px',marginRight:'200px',marginTop:'20px',border: '1px solid ', borderRadius: '2px', height:'1100px'}} >
 
      {/* <div className="container mt-5 login-form-container col-6" style={{ padding: '20px', border: '1px solid ', borderRadius: '10px' }}> */}
       <div className="credit text-center">
@@ -202,6 +233,15 @@ export default function VendorRegister() {
               handleChange("sname", e.target.value);
             }}
           />
+          <div
+            style={{
+              display:
+                info.sname.touched && info.sname.hasError ? "block" : "none",
+            }}
+            className="text-danger"
+          >
+            {info.sname.error}
+          </div>
         </div>
 
         <div className="form-group" >
@@ -215,6 +255,15 @@ export default function VendorRegister() {
               handleChange("regno", e.target.value);
             }}
           />
+          <div
+            style={{
+              display:
+                info.regno.touched && info.regno.hasError ? "block" : "none",
+            }}
+            className="text-danger"
+          >
+            {info.regno.error}
+          </div>
         </div>
 
 
@@ -234,6 +283,7 @@ export default function VendorRegister() {
               display:
                 info.email.touched && info.email.hasError ? "block" : "none",
             }}
+            className="text-danger"
           >
             {info.email.error}
           </div>
@@ -244,7 +294,7 @@ export default function VendorRegister() {
             type="text"
             id="cno"
             name="cno"
-            maxLength={10}
+           maxLength={10}
             value={info.cno.value}
             onChange={(e) => {
               handleChange("cno", e.target.value);
@@ -254,6 +304,7 @@ export default function VendorRegister() {
             style={{
               display: info.cno.touched && info.cno.hasError ? "block" : "none",
             }}
+            className="text-danger"
           >
             {info.cno.error}
           </div>
@@ -275,6 +326,7 @@ export default function VendorRegister() {
               display:
                 info.uname.touched && info.uname.hasError ? "block" : "none",
             }}
+            className="text-danger"
           >
             {info.uname.error}
           </div>
@@ -294,6 +346,7 @@ export default function VendorRegister() {
             style={{
               display: info.pwd.touched && info.pwd.hasError ? "block" : "none",
             }}
+            className="text-danger"
           >
             {info.pwd.error}
           </div>
@@ -314,6 +367,7 @@ export default function VendorRegister() {
               display:
                 info.cpwd.touched && info.cpwd.hasError ? "block" : "none",
             }}
+            className="text-danger"
           >
             {info.cpwd.error}
           </div>
@@ -345,11 +399,21 @@ export default function VendorRegister() {
             type="text"
             id="ans"
             name="ans"
+            required
             value={info.ans.value}
             onChange={(e) => {
               handleChange("ans", e.target.value);
             }}
           />
+          <div
+            style={{
+              display:
+                info.ans.touched && info.ans.hasError ? "block" : "none",
+            }}
+            className="text-danger"
+          >
+            {info.ans.error}
+          </div>
         </div>
 
         <input

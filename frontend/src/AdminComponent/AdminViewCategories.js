@@ -7,6 +7,10 @@ export default function AdminViewCategories(){
     const navigate= useNavigate();
 
     useEffect(()=>{
+<<<<<<< Updated upstream
+=======
+        // fetch("http://localhost:8080/getCategories")
+>>>>>>> Stashed changes
         fetch("https://localhost:7188/api/Category/categories")
         .then(resp=>resp.json())
         .then(data=>setCategories(data))
@@ -33,7 +37,7 @@ export default function AdminViewCategories(){
                         }) }
                    </tbody>
                </table>
-               <button type="button" className="btn btn-outline-primary" onClick={()=>{navigate("/addnewcategory")}}>Add new Category</button>
+               <button type="button" className="btn btn-outline-primary" onClick={()=>{navigate("/admin/addnewcategory")}}>Add new Category</button>
                <button type="button" className="btn btn-outline-primary" onClick={()=>{navigate("/admin")}}>Back to homepage</button>
           </div>
     )

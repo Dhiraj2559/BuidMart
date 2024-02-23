@@ -2,8 +2,8 @@ import { useEffect, useReducer, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
 export default function EditProfileCustomer() {
-  const us = useState(JSON.parse(localStorage.getItem("loggedUser")));
-  const user = useState(JSON.parse(localStorage.getItem("CustomerUser")));
+  const uss = useState(JSON.parse(localStorage.getItem("loggedUser")));
+  const users = useState(JSON.parse(localStorage.getItem("CustomerUser")));
   // useEffect(() => {
   //   const u = ;
   //   setUs(u);
@@ -17,19 +17,14 @@ export default function EditProfileCustomer() {
   // }, [us]);
 
   const initialState = {
-    uid: { value: user.id },
-    fname: {
-      value: user.first_name},
-    lname: {
-      value: user.last_name },
-    email: {
-      value: user.email },
-    cno: {
-      value: user.contact_number
-    },
-    uname: { value: us.username},
-    pwd: { value: us.password},
-    cpwd: { value: us.password},
+    uid: "",
+    fname: "",
+    lname: "",
+    email: "",
+    cno:"",
+    uname: "",
+    pwd: "",
+    cpwd: "",
     // qid: {
     //   value: us.question.id,
     //   hasError: false,
@@ -43,18 +38,30 @@ export default function EditProfileCustomer() {
   const reducer = (state, action) => {
     switch (action.type) {
       case "update":
-        const { name, value} =
-          action.data;
-        return {
-          ...state,
-          [name]: { value }
-        };
+        return { ...state, [action.fid]: action.value };
 
       case "reset":
         return initialState;
       default:
+        return state;
     }
   };
+
+  const [info, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(()=>{
+    const user=JSON.parse( localStorage.getItem("CustomerUser"));
+    const us = JSON.parse(localStorage.getItem("loggedUser"));
+
+        dispatch({ type: "update", fid: "uid", value:user.id});
+        dispatch({ type: "update", fid: "fname", value: user.first_name});
+        dispatch({ type: "update", fid: "lname", value:user.last_name});
+        dispatch({ type: "update", fid: "email", value: user.email});
+        dispatch({ type: "update", fid: "cno", value: user.contact_number});
+        dispatch({ type: "update", fid: "uname", value:us.username});
+        dispatch({ type: "update", fid: "pwd", value: us.password});
+        dispatch({ type: "update", fid: "cpwd", value: us.password});
+  },[])
 
   const [emails, setEmail] = useState([]);
   const [unames, setUname] = useState([]);
@@ -70,88 +77,88 @@ export default function EditProfileCustomer() {
       .then((resp) => resp.json())
       .then((data) => setUname(data));
   }, []);
-  const[error,setError]=useState("");
+  var error=useState("");
 
-  const handleChange = (name, value) => {
-    //a. call validation logic
-     error = validateData(name, value);
+  // const handleChange = (name, value) => {
+  //   //a. call validation logic
+  //    error = validateData(name, value);
 
-    //b. check form validity status
-    // let isFormValid = true;
-    // for (const key in info) {
-    //   // console.log(key+" : "+emp[key].hasError )
-    //   if (info[key].hasError === true) {
-    //     isFormValid = false;
-    //     break;
-    //   }
-    // }
+  //   //b. check form validity status
+  //   // let isFormValid = true;
+  //   // for (const key in info) {
+  //   //   // console.log(key+" : "+emp[key].hasError )
+  //   //   if (info[key].hasError === true) {
+  //   //     isFormValid = false;
+  //   //     break;
+  //   //   }
+  //   // }
 
-    //c. call dispatch method
-    dispatch({
-      type: "update",
-      data: { name, value},
-    });
-  };
+  //   //c. call dispatch method
+  //   dispatch({
+  //     type: "update",
+  //     data: { name, value},
+  //   });
+  // };
 
-  const validateData = (name, value) => {
+  // const validateData = (name, value) => {
    
-    let error = "";
-    switch (name) {
-      case "email":
-        if (value === user.email) {
+  //   let error = "";
+  //   switch (name) {
+  //     case "email":
+  //       if (value === users.email) {
           
-          error = "";
-        } else {
-          emails.forEach((element) => {
-            if (element === value) {
+  //         error = "";
+  //       } else {
+  //         emails.forEach((element) => {
+  //           if (element === value) {
              
-              error = "email already used";
-            }
-          });
-        }
-        break;
+  //             error = "email already used";
+  //           }
+  //         });
+  //       }
+  //       break;
 
-      case "uname":
-        if (value === us.username) {
+  //     case "uname":
+  //       if (value === uss.username) {
           
-          error = "";
-        } else {
-          unames.forEach((element) => {
-            if (element === value) {
+  //         error = "";
+  //       } else {
+  //         unames.forEach((element) => {
+  //           if (element === value) {
              
-              error = "username already used";
-            }
-          });
-        }
-        break;
-      case "pwd":
-        var exp1 =
-          /(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!,@,#,$,%,^,&,*])[\w\W]{8,}/;
-        if (!exp1.test(value)) {
+  //             error = "username already used";
+  //           }
+  //         });
+  //       }
+  //       break;
+  //     case "pwd":
+  //       var exp1 =
+  //         /(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!,@,#,$,%,^,&,*])[\w\W]{8,}/;
+  //       if (!exp1.test(value)) {
          
-          error =
-            "password should contain atleast one Capital,small letter,special char,number";
-        }
-        break;
+  //         error =
+  //           "password should contain atleast one Capital,small letter,special char,number";
+  //       }
+  //       break;
 
-      case "cno":
-        var exp1 = /[\d]{10}/;
-        if (!exp1.test(value)) {
+  //     case "cno":
+  //       var exp2 = /[\d]{10}/;
+  //       if (!exp2.test(value)) {
          
-          error = "invalid contact number";
-        }
-        break;
+  //         error = "invalid contact number";
+  //       }
+  //       break;
 
-      case "cpwd":
-        if (info.pwd != value) {
+  //     case "cpwd":
+  //       if (info.pwd !== value) {
          
-          error = "confirm password mismatched";
-        }
-        break;
-      default:
-    }
-     return error;
-  };
+  //         error = "confirm password mismatched";
+  //       }
+  //       break;
+  //     default:
+  //   }
+  //    return error;
+  // };
 
   // const [questions, setQuestion] = useState([]);
 
@@ -161,7 +168,7 @@ export default function EditProfileCustomer() {
   //     .then((data) => setQuestion(data));
   // }, []);
 
-  const [info, dispatch] = useReducer(reducer, initialState);
+ 
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
 
@@ -184,7 +191,7 @@ export default function EditProfileCustomer() {
         if (Object.keys(obj).length === 0) {
           setMsg("Invalid username/password");
         } else {
-          navigate("/customer");
+          navigate("/cust");
         }
       });
   };
@@ -198,9 +205,14 @@ export default function EditProfileCustomer() {
             type="text"
             id="fname"
             name="fname"
-            placeholder={info.fname.value}
+            placeholder={users.first_name}
             onChange={(e) => {
-              handleChange("fname", e.target.value);
+              // submitData("fname", e.target.value);
+              dispatch({
+                type: "update",
+                fid: "fname",
+                value: e.target.value,
+              });
             }}
           />
         </div>
@@ -210,9 +222,15 @@ export default function EditProfileCustomer() {
             type="text"
             id="lname"
             name="lname"
-            value={info.lname.value}
+            // placeholder={users.last_name}
+            value={users.last_name}
             onChange={(e) => {
-              handleChange("lname", e.target.value);
+              // handleChange("lname", e.target.value);
+              dispatch({
+                type: "update",
+                fid: "lname",
+                value: e.target.value,
+              });
             }}
           />
         </div>
@@ -222,19 +240,17 @@ export default function EditProfileCustomer() {
             type="text"
             id="email"
             name="email"
-            value={info.email.value}
+            placeholder={users.email}
             onChange={(e) => {
-              handleChange("email", e.target.value);
+              // handleChange("email", e.target.value);
+              dispatch({
+                type: "update",
+                fid: "email",
+                value: e.target.value,
+              });
             }}
           />
-          <div
-            style={{
-              display:
-                info.email.touched && info.email.hasError ? "block" : "none",
-            }}
-          >
-            {info.email.error}
-          </div>
+          
         </div>
         <div>
           <label htmlFor="cno">Enter Contact number</label>
@@ -242,18 +258,17 @@ export default function EditProfileCustomer() {
             type="text"
             id="cno"
             name="cno"
-            value={info.cno.value}
+            placeholder={users.contact_number}
             onChange={(e) => {
-              handleChange("cno", e.target.value);
+              // handleChange("cno", e.target.value);
+              dispatch({
+                type: "update",
+                fid: "cno",
+                value: e.target.value,
+              });
             }}
           />
-          <div
-            style={{
-              display: info.cno.touched && info.cno.hasError ? "block" : "none",
-            }}
-          >
-            {info.cno.error}
-          </div>
+          
         </div>
         <div>
           <label htmlFor="uname">Enter username</label>
@@ -261,19 +276,17 @@ export default function EditProfileCustomer() {
             type="text"
             id="uname"
             name="uname"
-            value={info.uname.value}
+            placeholder={uss.username}
             onChange={(e) => {
-              handleChange("uname", e.target.value);
+              // handleChange("uname", e.target.value);
+              dispatch({
+                type: "update",
+                fid: "uname",
+                value: e.target.value,
+              });
             }}
           />
-          <div
-            style={{
-              display:
-                info.uname.touched && info.uname.hasError ? "block" : "none",
-            }}
-          >
-            {info.uname.error}
-          </div>
+          
         </div>
         <div>
           <label htmlFor="pwd">Enter password</label>
@@ -281,18 +294,17 @@ export default function EditProfileCustomer() {
             type="text"
             id="pwd"
             name="pwd"
-            value={info.pwd.value}
+            placeholder={uss.password}
             onChange={(e) => {
-              handleChange("pwd", e.target.value);
+              // handleChange("pwd", e.target.value);
+              dispatch({
+                type: "update",
+                fid: "pwd",
+                value: e.target.value,
+              });
             }}
           />
-          <div
-            style={{
-              display: info.pwd.touched && info.pwd.hasError ? "block" : "none",
-            }}
-          >
-            {info.pwd.error}
-          </div>
+          
         </div>
         <div>
           <label htmlFor="cpwd">Confirm password</label>
@@ -300,20 +312,17 @@ export default function EditProfileCustomer() {
             type="text"
             id="cpwd"
             name="cpwd"
-            value={info.cpwd.value}
+            placeholder={uss.password}
             onChange={(e) => {
-              handleChange("cpwd", e.target.value);
+              // handleChange("cpwd", e.target.value);
+              dispatch({
+                type: "update",
+                fid: "cpwd",
+                value: e.target.value,
+              });
             }}
           />
-          <div
-            style={{
-              display:
-                info.cpwd.touched && info.cpwd.hasError ? "block" : "none",
-            }}
-          >
-            {info.cpwd.error}
-          </div>
-        </div>
+         </div>
         {/* <div>
           <label htmlFor="qid">Select Question for forget password</label>
           <select
@@ -349,7 +358,7 @@ export default function EditProfileCustomer() {
         <input
           type="submit"
           className="btn btn-primary"
-          disabled={!info.isFormValid}
+         
           value="Update"
           onClick={(e) => {
             submitData(e);
@@ -364,6 +373,7 @@ export default function EditProfileCustomer() {
           }}
         />
       </form>
+      <div>{error}</div>
       <div>{msg}</div>
     </div>
   );

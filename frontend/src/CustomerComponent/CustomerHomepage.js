@@ -3,7 +3,7 @@ import { Link, Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import Products from "./Products";
 
 import "../style.css";
-import img1 from "../images/buildmart.jpg"
+
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -23,13 +23,14 @@ import {
   faLinkedin,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
+import { Card } from "react-bootstrap";
 
 export default function CustomerHomepage() {
   const [categories, setCategory] = useState([]);
   const [products, setProducts] = useState([]);
   const [vendorproducts, setVendorProducts] = useState([]);
   const [msg, setMsg] = useState("");
-  const [qty, setQty] = useState(0);
+  const [qty, setQty] = useState(1);
 
 
   const navigate = useNavigate();
@@ -56,9 +57,13 @@ export default function CustomerHomepage() {
 
   const viewProduct = (v) => {
     // alert(productid);
+    console.log(v.target.value)
     fetch("http://localhost:8080/getVendorProductsCustomer?pid=" + v.target.value)
       .then((resp) => resp.json())
-      .then((data) => setVendorProducts(data));
+      .then((data) => {setVendorProducts(data)
+      console.log(data);
+      });
+      // console.log(vendorproducts);
 
       setPrdflag(true);
   
@@ -66,6 +71,9 @@ export default function CustomerHomepage() {
 
 
   const addToCart1 = (vpid, uid, qty) => {
+
+    if(qty>0)
+    {
     fetch(
      
       "http://localhost:8080/addToCart?vpid=" +
@@ -83,58 +91,19 @@ export default function CustomerHomepage() {
           setMsg("something went wrong");
         }
       });
+    }
+    else
+    setmsg1("cannot proceed for -ve Quantity");
       // alert(qty);
   };
 
+  const[msg1,setmsg1]=useState("");
   const[catflag,setCatflag]=useState(false);
   const[prdflag,setPrdflag]=useState(false);
 
   return (
     <div className="App fs-4">
-      <header className="header container-fluid">
-        <ul className="nav navbar">
-          <li className="nav-link logo">
-            <Link to="/customer" className="nav-link" style={{ fontSize: 40 }}>
-            <img  src={img1} style={{width:"250px", height:"50px"  }} alt="pic"/>
-            </Link>
-          </li>
-          <li className="nav-link">
-            <Link to="/customer" className="nav-link">
-              HOME
-            </Link>
-          </li>
-          
-          <li className="nav-link">
-            <Link to="/myOrders" className="nav-link">
-              Order History
-            </Link>
-          </li>
-
-          
-        
-          
-          <li className="nav-item">
-            <Link to="/viewCart" className="nav-link">
-              <div className="icon-container">
-                <FontAwesomeIcon icon={faShoppingCart} />
-              </div>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/viewProfile" className="nav-link">
-              <div className="icon-container">
-                <FontAwesomeIcon icon={faUser} />
-              </div>
-            </Link>
-          </li>
-          <li className="nav-link">
-            <Link to="/logout" className="nav-link">
-              Logout
-            </Link>
-          </li>
-        </ul>
-      </header>
-
+      
       <div  id="operations">
       
      
@@ -161,7 +130,7 @@ export default function CustomerHomepage() {
          <div className="container col-3 "> 
           
               <select name="categories" onChange={(e) => viewProduct(e)} >
-                <option disabled selected>select Product</option>
+                <option  selected value='0'>select Product</option>
                 {products.map((v) => {
                   return <option value={v.id}>{v.productName}</option>;
                  
@@ -172,56 +141,81 @@ export default function CustomerHomepage() {
       </nav>
 
        
-
-     
-   <div  style={{display:prdflag?"block":"none"}}>
-      <table  className="table table-striped table-responsive table-info">
+      {/*  
+      container table-responsive-smtable-responsive-sm fs-4*/}
+      
+   <div className="container credit text-center mb-3 login-form-container col-9" style={{display:prdflag?"block":"none"}}>
+      <table  className="table table-striped table-responsive table-info" >
         <thead>
           <tr>
             <th>
-              <h2>Image</h2>
+              <h1><b>Image</b></h1>
             </th>
             <th>
-              <h2>Product name</h2>
+              <h1><b>Product name</b></h1>
             </th>
             <th>
-              <h2>Description</h2>
+              <h1><b>Description</b></h1>
             </th>
             <th>
-              <h2>Vendor name</h2>
+              <h1><b>Vendor name</b></h1>
             </th>
             <th>
-              <h2>Price</h2>
+              <h1><b>Price</b></h1>
             </th>
-            
             <th>
-              <h2>Cart ops</h2>
+              <h1><b>Quantity</b></h1>
+            </th>
+            <th>
+              <h1><b>Cart</b></h1>
             </th>
           </tr>
         </thead>
         <tbody>
           {vendorproducts.map((v) => {
             return (
-              <tr>
+              <tr  key={v.id}>
                 <td>
-                  <img
+
+                < Card.Img width={200} height={200}  className="img-thumbnail" src={`data:image/png;base64,${v.product.picture}`} /><br/>
+
+                  {/* <img
                     src={`data:image/png;base64,${v.product.picture}`}
                     alt="Product"
                     className="img-thumbnail"
                     style={{ maxWidth: "300px", height: "300px" }}
-                  />
+                  /> */}
+                  {/* {v.product.picture && (
+            <img
+              src={`data:image/png;base64,${v.product.picture}`}
+              alt="Product"
+              className="img-thumbnail"
+              style={{ maxWidth: "300px", height: "300px" }}
+            />
+          )} */}
                 </td>
                 <td>
-                  <h3>{v.product.productName}</h3>
+                  <p>{v.product.productName}</p>
                 </td>
                 <td>
-                  <h3>{v.product.description}</h3>
+                  <p>{v.product.description}</p>
                 </td>
                 <td>
-                  <h3>{v.vendor.shopName}</h3>
+                  <p>{v.vendor.shopName}</p>
                 </td>
                 <td>
-                  <h3> {v.price}</h3>
+                  <p> {v.price}</p>
+                </td>
+                <td>
+                <input
+                      type="number"
+                      className="form-control"
+                      id="qty"
+                      name="qty"
+                      value={qty}
+                      onChange={(e) => setQty(e.target.value)}
+                    />
+
                 </td>
                 <td>
                   <div className="input-group">
@@ -242,20 +236,13 @@ export default function CustomerHomepage() {
           })}
         </tbody>
       </table>
-      <div>
-        <label htmlFor="qty">Enter quantity</label>
-        <input
-                      type="number"
-                      className="form-control"
-                      id="qty"
-                      name="qty"
-                      value={qty}
-                      onChange={(e) => setQty(e.target.value)}
-                    />
-      </div>
+     
       </div>
       
       <div className="text-success">{msg}</div>
+      <div className="text-warning">{msg1}</div>
+
+
       <Outlet />
     </div>
   );
