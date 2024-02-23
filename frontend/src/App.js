@@ -1,12 +1,9 @@
 import "./script.js";
 import "./App.css";
 import "./style.css";
-<<<<<<< Updated upstream
 
 
-=======
 import "./App.css";
->>>>>>> Stashed changes
 import img from "./images/buildmart.jpg";
 import Home from "./MainHome/Home.js";
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link, Outlet} from 'react-router-dom'
 import img from "../images/logo.webp"
 import img1 from "../images//BML.png"
 import { useSelector } from 'react-redux';
@@ -43,6 +43,7 @@ export default function AdminHome() {
                     </div>
 
                 </nav>
+                <Outlet></Outlet>
               
             </div>
 
