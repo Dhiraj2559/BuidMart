@@ -7,10 +7,7 @@ export default function AdminViewCategories(){
     const navigate= useNavigate();
 
     useEffect(()=>{
-<<<<<<< Updated upstream
-=======
         // fetch("http://localhost:8080/getCategories")
->>>>>>> Stashed changes
         fetch("https://localhost:7188/api/Category/categories")
         .then(resp=>resp.json())
         .then(data=>setCategories(data))

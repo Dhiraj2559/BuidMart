@@ -38,11 +38,7 @@ export default function AdminViewAllCustomers(){
                                     {v.lastName}
                                 </td>
                                 <td>
-<<<<<<< Updated upstream
-                                    <button type="button" onClick={()=>{navigate(`/viewCustomer/${v.userId}`)}}>View details</button>
-=======
                                     <button type="button" onClick={()=>{navigate(`/admin/viewCustomer/${v.userId}`)}}>View details</button>
->>>>>>> Stashed changes
                                 </td>
                             </tr>)
                           })}  

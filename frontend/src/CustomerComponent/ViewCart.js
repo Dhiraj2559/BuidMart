@@ -230,11 +230,12 @@ export default function ViewCart() {
           <tbody>
             {cart.map((v) => {
                if (v.vendorProduct && v.vendorProduct.product) {
+                console.log(v);
               return (
                 <tr className="table-info">
                   <td><img src={`data:image/jpeg;base64,${v.vendorProduct.product.picture}`} width={100} height={100}/></td>
                   <td className="table-info">{v.vendorProduct.product.productName}</td>
-                  <td className="table-info" onChange={sum(v.vendorProduct.price*v.quantity)} >{v.vendorProduct.price}</td>
+                  <td className="table-info" onChange={sum(v.vendorProduct.price*v.quantity-(v.vendorProduct.price*v.quantity*v.vendorProduct.offerPercentage/100))} >{v.vendorProduct.price}</td>
                   <td className="table-info" >{v.quantity}</td>
                   <td className="table-info" >
                   <input className="btn btn-outline-primary"
@@ -359,6 +360,7 @@ export default function ViewCart() {
           <label htmlFor="pay">Enter Payment mode</label>
           <select id="pay"
             name="pay" value={pay} onChange={handlepayChange}>
+              <option disabled selected>Select One</option>
               <option  value="G-Pay">Google Pay</option>
               <option value="Phone-Pay">Phone Pay</option>
               <option value="PayYm">PayTm</option>

@@ -43,11 +43,7 @@ export default function AdminHome() {
                     </div>
 
                 </nav>
-<<<<<<< Updated upstream
-                <Outlet></Outlet>
-=======
                 <Outlet/>
->>>>>>> Stashed changes
               
             </div>
 

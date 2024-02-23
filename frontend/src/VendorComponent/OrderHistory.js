@@ -45,10 +45,13 @@ export default function OrderHistory()
             <th scope="col">Order Date</th>
             <th scope="col">Order Status</th>
             <th scope="col">Total Price</th>
+            <th>Initial Payment Ammount</th>
+            <th>Initial Payment Id</th>
             </tr>
           </thead>
           <tbody>
             {vendorOrderList.map((v) => {
+              console.log(v);
               return (
                 <tr>
                   <td>{v.order.user.username}</td>
@@ -60,8 +63,9 @@ export default function OrderHistory()
                   <td>{v.order.address.area.city.city_name}</td>
                   <td>{v.order.orderDate}</td>
                   <td>{v.order.order_Status.status}</td>
-                  <td>{(v.quantity) * (v.vendorProduct.price) }</td>
-                 
+                  <td>{(((v.quantity) * (v.vendorProduct.price))-((v.quantity) * (v.vendorProduct.price)*(v.vendorProduct.offerPercentage/100)) )}</td>
+                  <td>{v.order.initialPaymentAmount}</td>
+                  <td>{v.order.initialPaymentTransactionId}</td>
                 </tr>
               );
             })}

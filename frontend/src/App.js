@@ -3,12 +3,7 @@ import "./App.css";
 import "./style.css";
 
 
-<<<<<<< Updated upstream
-import "./App.css";
-import img from "./images/buildmart.jpg";
-=======
 import img from "./images/BML.png";
->>>>>>> Stashed changes
 import Home from "./MainHome/Home.js";
 
 import {Route, Routes } from "react-router";
