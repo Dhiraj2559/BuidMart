@@ -7,7 +7,7 @@ export default function AdminViewCategories(){
     const navigate= useNavigate();
 
     useEffect(()=>{
-        fetch("https://localhost:7188/api/Category ")
+        fetch("https://localhost:7188/api/Category/categories")
         .then(resp=>resp.json())
         .then(data=>setCategories(data))
     },[])

@@ -75,6 +75,7 @@ export default function Login() {
   // <div style={{ padding: '20px 50px', marginLeft:'320px', border: '1px solid ', borderRadius: '2px', height:'360px'}} >
   //   <form>
   //       <div>
+
   return (
     <div className="body">
     <div style={{ padding: '20px 50px', marginTop:"140px", marginLeft:'300px', border: '1px solid ', borderRadius: '8px', height:'360px', backgroundColor:"white"}} >
@@ -132,5 +133,6 @@ export default function Login() {
     </div>
     </div>
   
+   
   );
 }

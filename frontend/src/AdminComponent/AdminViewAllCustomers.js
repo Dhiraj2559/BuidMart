@@ -7,7 +7,8 @@ export default function AdminViewAllCustomers(){
     const navigate= useNavigate();
 
     useEffect(()=>{
-        fetch("http://localhost:8080/getCustomers")
+        // fetch("http://localhost:8080/getCustomers")
+        fetch("https://localhost:7188/api/Category/customers")
         .then(resp=>resp.json())
         .then(data=>setCustomers(data))
     },[])
@@ -28,16 +29,16 @@ export default function AdminViewAllCustomers(){
                           {customers.map((v)=>{ return(
                             <tr>
                                 <td>
-                                    {v.user.id}
+                                    {v.userId}
                                 </td>
                                 <td>
-                                    {v.first_name}
+                                    {v.firstName}
                                 </td>
                                 <td>
-                                    {v.last_name}
+                                    {v.lastName}
                                 </td>
                                 <td>
-                                    <button type="button" onClick={()=>{navigate(`/viewCustomer/${v.user.id}`)}}>View details</button>
+                                    <button type="button" onClick={()=>{navigate(`/viewCustomer/${v.userId}`)}}>View details</button>
                                 </td>
                             </tr>)
                           })}  
